@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Board_1",
+    "color": "#ff007f",
+    "description": "The description of the Board_1",
+    "createdAt": "2019-06-27T14:10:25.724Z",
+    "id": "5udmmixoe"
+  },
+  {
+    "name": "Board_2",
+    "color": "#9300ff",
+    "description": "The description of the Board_2",
+    "createdAt": "2019-06-27T14:10:29.237Z",
+    "id": "2pmxm3a05"
+  },
+  {
+    "name": "Board_3",
+    "color": "#ff0000",
+    "description": "The description of the Board_3",
+    "createdAt": "2019-06-27T14:59:57.713Z",
+    "id": "eqmukoasy"
+  }
+]
