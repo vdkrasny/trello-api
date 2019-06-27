@@ -1,8 +1,20 @@
+const Joi = require('@hapi/joi');
 const DatabaseClient = require('../../database/DatabaseClient');
 
 class Users {
-    constructor(collectionName) {
+    constructor(collectionName, schema) {
         this._collectionClient = new DatabaseClient(collectionName);
+        this.schema = schema;
+    }
+
+    validate(collectionItem) {
+        const validator = Joi.validate(collectionItem, this._schema);
+
+        if (validator.error) {
+            throw new Error(validator.error);
+        }
+
+        return undefined;
     }
 
     async saveCollection(collection) {
@@ -18,4 +30,24 @@ class Users {
     }
 }
 
-module.exports = new Users('users');
+const schema = Joi.object()
+    .keys({
+        'login': Joi
+            .string()
+            .min(5)
+            .max(50)
+            .required(),
+        'password': Joi
+            .string()
+            .min(7)
+            .required(),
+        'role': Joi
+            .string()
+            .valid('user', 'admin')
+            .required(),
+        'id': Joi
+            .string()
+            .required()
+    });
+
+module.exports = new Users('users', schema);
