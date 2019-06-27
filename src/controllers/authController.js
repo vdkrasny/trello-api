@@ -8,23 +8,29 @@ class AuthController {
             user: requestUser
         } = request;
 
-        if (requestUser) {
-            throw new Error('You are already logged in.');
-        }
+        try {
+            if (requestUser) {
+                throw new Error('You are already logged in.');
+            }
 
-        if (login && password) {
-            const hashedPassword = await bcrypt.hash(password, 12);
-            const newUser = {
-                login,
-                password: hashedPassword,
-                role: 'user'
-            };
+            if (login && password) {
+                const hashedPassword = await bcrypt.hash(password, 12);
+                const newUser = {
+                    login,
+                    password: hashedPassword,
+                    role: 'user'
+                };
 
-            await Users.create(newUser);
+                await Users.create(newUser);
 
-            response
-                .status(200)
-                .end();
+                return response
+                    .status(200)
+                    .end();
+            }
+
+            throw new Error('login and password is required');
+        } catch (error) {
+            return next(error);
         }
     }
 }
