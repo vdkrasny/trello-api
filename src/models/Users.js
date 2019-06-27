@@ -17,6 +17,23 @@ class Users {
         return undefined;
     }
 
+    async create(body = {}) {
+        const collection = await this.getCollection();
+        const randomId = Math.random()
+            .toString(36)
+            .substr(2, 9);
+        const item = {
+            ...body,
+            id: randomId
+        };
+
+        this.validate(item);
+        collection.push(item);
+        await this.saveCollection(collection);
+
+        return item;
+    }
+
     async saveCollection(collection) {
         await this._collectionClient.write(collection);
 
