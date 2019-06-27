@@ -68,6 +68,22 @@ class AuthController {
             return next(error);
         }
     }
+
+    verifyUser(request, response, next) {
+        try {
+            const token = request.cookies.authToken;
+
+            if (token) {
+                const user = jwt.verify(token, authSecret);
+
+                request.user = user;
+            }
+
+            return next();
+        } catch (error) {
+            return next(error);
+        }
+    }
 }
 
 module.exports = new AuthController();
