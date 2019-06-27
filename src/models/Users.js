@@ -34,6 +34,17 @@ class Users {
         return item;
     }
 
+    async findByLogin(login) {
+        const collection = await this.getCollection();
+        const targetUser = collection.find(({ login: itemLogin }) => itemLogin === String(login));
+
+        if (!targetUser) {
+            return undefined;
+        }
+
+        return targetUser;
+    }
+
     async saveCollection(collection) {
         await this._collectionClient.write(collection);
 

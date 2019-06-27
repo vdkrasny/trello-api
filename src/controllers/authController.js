@@ -1,7 +1,42 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { authSecret } = require('../../constants');
 const Users = require('../models/Users');
 
 class AuthController {
+    async login(request, response, next) {
+        const {
+            body: { login: requestLogin, password: requestPassword },
+            user: requestUser
+        } = request;
+
+        try {
+            if (requestUser) {
+                throw new Error('You are already logged in.');
+            }
+
+            const foundUser = await Users.findByLogin(requestLogin);
+
+            if (foundUser) {
+                const { password } = foundUser;
+                const isPasswordCorrect = await bcrypt.compare(requestPassword, password);
+
+                if (isPasswordCorrect) {
+                    const token = jwt.sign(foundUser, authSecret, { expiresIn: 2000 });
+                    response.cookie('authToken', token);
+
+                    return response
+                        .status(200)
+                        .end();
+                }
+            }
+
+            throw new Error('Username or password is incorrect');
+        } catch (error) {
+            return next(error);
+        }
+    }
+
     async signup(request, response, next) {
         const {
             body: { login, password },
