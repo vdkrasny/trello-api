@@ -1,4 +1,4 @@
-const Cards = require('../models/Cards');
+const cardModel = require('../models/Card');
 
 class CardsController {
     async create(request, response, next) {
@@ -18,7 +18,7 @@ class CardsController {
                 dueDate,
                 labels
             };
-            const cards = await Cards.create(newCard);
+            const cards = await cardModel.create(newCard);
 
             return response.json(cards);
         } catch (error) {
@@ -28,7 +28,7 @@ class CardsController {
 
     async findAll(request, response, next) {
         try {
-            const cards = await Cards.getCollection();
+            const cards = await cardModel.getCollection();
 
             return response.json(cards);
         } catch (error) {
@@ -40,7 +40,7 @@ class CardsController {
         const { params: { cardId } } = request;
 
         try {
-            const foundCard = await Cards.findById(cardId);
+            const foundCard = await cardModel.findById(cardId);
 
             if (!foundCard) {
                 throw new Error('Not found');
@@ -59,7 +59,7 @@ class CardsController {
         } = request;
 
         try {
-            const updatedCard = await Cards.findByIdAndUpdate(cardId, body);
+            const updatedCard = await cardModel.findByIdAndUpdate(cardId, body);
 
             if (!updatedCard) {
                 throw new Error('Not found');
@@ -75,7 +75,7 @@ class CardsController {
         const { params: { cardId } } = request;
 
         try {
-            const deletedCard = await Cards.findByIdAndDelete(cardId);
+            const deletedCard = await cardModel.findByIdAndDelete(cardId);
 
             if (!deletedCard) {
                 throw new Error('Not found');

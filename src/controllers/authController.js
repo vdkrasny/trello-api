@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { authSecret } = require('../../constants');
-const Users = require('../models/Users');
+const userModel = require('../models/User');
 
 class AuthController {
     async login(request, response, next) {
@@ -15,7 +15,7 @@ class AuthController {
                 throw new Error('You are already logged in.');
             }
 
-            const foundUser = await Users.findByLogin(requestLogin);
+            const foundUser = await userModel.findByLogin(requestLogin);
 
             if (foundUser) {
                 const { password } = foundUser;
@@ -56,7 +56,7 @@ class AuthController {
                     role: 'user'
                 };
 
-                await Users.create(newUser);
+                await userModel.create(newUser);
 
                 return response
                     .status(200)
