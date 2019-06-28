@@ -68,50 +68,6 @@ class AuthController {
             return next(error);
         }
     }
-
-    verifyUser(request, response, next) {
-        try {
-            const token = request.cookies.authToken;
-
-            if (token) {
-                const user = jwt.verify(token, authSecret);
-
-                request.user = user;
-            }
-
-            return next();
-        } catch (error) {
-            return next(error);
-        }
-    }
-
-    isAuth(request, response, next) {
-        const { user } = request;
-
-        try {
-            if (!user) {
-                throw new Error('You are not authorized');
-            }
-
-            return next();
-        } catch (error) {
-            return next(error);
-        }
-    }
-
-    isAdmin(request, response, next) {
-        const { user } = request;
-
-        try {
-            if (user.role !== 'admin') {
-                throw new Error('You do not have access to this resource');
-            }
-
-            return next();
-        } catch (error) {
-            return next(error);
-        }
-    }
 }
 
 module.exports = new AuthController();

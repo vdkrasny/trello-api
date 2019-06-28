@@ -1,9 +1,10 @@
 const express = require('express');
-const { authController, cardsController } = require('../controllers');
+const { accessPermissions } = require('../middlewares');
+const { cardsController } = require('../controllers');
 
 const router = express.Router();
 
-router.use(authController.isAuth);
+router.use(accessPermissions.forAuthorized);
 router.get('/', cardsController.findAll);
 router.get('/:cardId', cardsController.findById);
 router.post('/', cardsController.create);
