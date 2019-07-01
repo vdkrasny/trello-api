@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const { logger, errorHandler } = require('./src/middlewares');
 const routes = require('./src/routes');
@@ -10,8 +9,7 @@ const port = process.env.PORT || 3000;
 
 app.use(helmet());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger);
 app.use('/api', routes);
 app.use(errorHandler);

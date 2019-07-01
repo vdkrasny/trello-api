@@ -23,7 +23,7 @@ class AuthController {
 
                 if (isPasswordCorrect) {
                     const token = jwt.sign(foundUser, authSecret, { expiresIn: 2000 });
-                    response.cookie('authToken', token);
+                    response.setHeader('x-auth-token', token);
 
                     return response
                         .status(200)

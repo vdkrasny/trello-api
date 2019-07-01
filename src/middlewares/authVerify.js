@@ -2,13 +2,13 @@ const jwt = require('jsonwebtoken');
 const { authSecret } = require('../../constants');
 
 module.exports = (request, response, next) => {
-    const token = request.cookies.authToken;
+    const token = request.headers['x-auth-token'];
 
     if (token) {
         try {
-            const user = jwt.verify(token, authSecret);
+            const verifiedUser = jwt.verify(token, authSecret);
 
-            request.user = user;
+            request.user = verifiedUser;
         } catch (error) {
             return next(error);
         }

@@ -6,8 +6,8 @@ const { authVerify } = require('../middlewares');
 
 const router = express.Router();
 
-router.all('*', authVerify);
 router.use('/', authRoutes);
+router.all('*', authVerify);
 router.use('/boards', boardsRoutes);
 router.use('/cards', cardsRoutes);
 
