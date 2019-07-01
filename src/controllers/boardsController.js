@@ -1,4 +1,4 @@
-const Boards = require('../models/Boards');
+const boardModel = require('../models/Board');
 
 class BoardsController {
     async create(request, response, next) {
@@ -11,7 +11,7 @@ class BoardsController {
                 description,
                 createdAt: new Date()
             };
-            const boards = await Boards.create(newBoard);
+            const boards = await boardModel.create(newBoard);
 
             return response.json(boards);
         } catch (error) {
@@ -21,7 +21,7 @@ class BoardsController {
 
     async findAll(request, response, next) {
         try {
-            const boards = await Boards.getCollection();
+            const boards = await boardModel.getCollection();
 
             return response.json(boards);
         } catch (error) {
@@ -33,7 +33,7 @@ class BoardsController {
         const { params: { boardId } } = request;
 
         try {
-            const foundBoard = await Boards.findById(boardId);
+            const foundBoard = await boardModel.findById(boardId);
 
             if (!foundBoard) {
                 throw new Error('Not found');
@@ -52,7 +52,7 @@ class BoardsController {
         } = request;
 
         try {
-            const updatedBoard = await Boards.findByIdAndUpdate(boardId, body);
+            const updatedBoard = await boardModel.findByIdAndUpdate(boardId, body);
 
             if (!updatedBoard) {
                 throw new Error('Not found');
@@ -68,7 +68,7 @@ class BoardsController {
         const { params: { boardId } } = request;
 
         try {
-            const deletedBoard = await Boards.findByIdAndDelete(boardId);
+            const deletedBoard = await boardModel.findByIdAndDelete(boardId);
 
             if (!deletedBoard) {
                 throw new Error('Not found');

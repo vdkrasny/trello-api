@@ -1,7 +1,7 @@
 const Joi = require('@hapi/joi');
 const Collection = require('./Collection');
 
-class Boards extends Collection {
+class Board extends Collection {
     constructor(schema) {
         super('boards', schema);
     }
@@ -29,4 +29,4 @@ const schema = Joi
             .required()
     });
 
-module.exports = new Boards(schema);
+module.exports = new Board(schema);

@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { authSecret } = require('../../constants');
-const Users = require('../models/Users');
+const userModel = require('../models/User');
 
 class AuthController {
     async login(request, response, next) {
@@ -15,7 +15,7 @@ class AuthController {
                 throw new Error('You are already logged in.');
             }
 
-            const foundUser = await Users.findByLogin(requestLogin);
+            const foundUser = await userModel.findByLogin(requestLogin);
 
             if (foundUser) {
                 const { password } = foundUser;
@@ -23,7 +23,7 @@ class AuthController {
 
                 if (isPasswordCorrect) {
                     const token = jwt.sign(foundUser, authSecret, { expiresIn: 2000 });
-                    response.cookie('authToken', token);
+                    response.setHeader('x-auth-token', token);
 
                     return response
                         .status(200)
@@ -56,7 +56,7 @@ class AuthController {
                     role: 'user'
                 };
 
-                await Users.create(newUser);
+                await userModel.create(newUser);
 
                 return response
                     .status(200)
@@ -64,50 +64,6 @@ class AuthController {
             }
 
             throw new Error('login and password is required');
-        } catch (error) {
-            return next(error);
-        }
-    }
-
-    verifyUser(request, response, next) {
-        try {
-            const token = request.cookies.authToken;
-
-            if (token) {
-                const user = jwt.verify(token, authSecret);
-
-                request.user = user;
-            }
-
-            return next();
-        } catch (error) {
-            return next(error);
-        }
-    }
-
-    isAuth(request, response, next) {
-        const { user } = request;
-
-        try {
-            if (!user) {
-                throw new Error('You are not authorized');
-            }
-
-            return next();
-        } catch (error) {
-            return next(error);
-        }
-    }
-
-    isAdmin(request, response, next) {
-        const { user } = request;
-
-        try {
-            if (user.role !== 'admin') {
-                throw new Error('You do not have access to this resource');
-            }
-
-            return next();
         } catch (error) {
             return next(error);
         }

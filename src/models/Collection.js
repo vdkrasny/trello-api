@@ -26,9 +26,9 @@ class Collection {
 
     async findById(id) {
         const collection = await this.getCollection();
-        const { targetItem } = this.syncFindItemAndItsIndex(collection, id);
+        const targetItem = collection.find(({ id: itemId }) => itemId === String(id));
 
-        if (!targetItem) {
+        if (targetItem === -1) {
             return undefined;
         }
 
@@ -37,12 +37,13 @@ class Collection {
 
     async findByIdAndUpdate(id, body = {}) {
         const collection = await this.getCollection();
-        const { targetItem, targetItemIndex } = this.syncFindItemAndItsIndex(collection, id);
+        const targetItemIndex = collection.findIndex(({ id: itemId }) => itemId === String(id));
 
-        if (!targetItem) {
+        if (targetItemIndex === -1) {
             return undefined;
         }
 
+        const targetItem = collection[targetItemIndex];
         const updatedItem = {
             ...targetItem,
             ...body
@@ -57,9 +58,9 @@ class Collection {
 
     async findByIdAndDelete(id) {
         const collection = await this.getCollection();
-        const { targetItem, targetItemIndex } = this.syncFindItemAndItsIndex(collection, id);
+        const targetItemIndex = collection.findIndex(({ id: itemId }) => itemId === String(id));
 
-        if (!targetItem) {
+        if (targetItemIndex === -1) {
             return undefined;
         }
 
@@ -89,18 +90,6 @@ class Collection {
         }
 
         return undefined;
-    }
-
-    syncFindItemAndItsIndex(collection, id) {
-        const targetItemIndex = collection.findIndex(({ id: itemId }) => itemId === String(id));
-
-        if (targetItemIndex === -1) {
-            return { targetItem: undefined, targetItemIndex: undefined };
-        }
-
-        const targetItem = collection[targetItemIndex];
-
-        return { targetItem, targetItemIndex };
     }
 }
 

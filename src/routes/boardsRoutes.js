@@ -1,13 +1,16 @@
 const express = require('express');
-const { authController, boardsController } = require('../controllers');
+const { accessPermissions } = require('../middlewares');
+const { boardsController } = require('../controllers');
 
 const router = express.Router();
 
-router.use(authController.isAuth);
+router.use(accessPermissions.forAuthorized);
 router.get('/', boardsController.findAll);
 router.get('/:boardId', boardsController.findById);
-router.post('/', authController.isAdmin, boardsController.create);
-router.put('/:boardId', authController.isAdmin, boardsController.findByIdAndUpdate);
-router.delete('/:boardId', authController.isAdmin, boardsController.findByIdAndDelete);
+
+router.use(accessPermissions.forAdmin);
+router.post('/', boardsController.create);
+router.put('/:boardId', boardsController.findByIdAndUpdate);
+router.delete('/:boardId', boardsController.findByIdAndDelete);
 
 module.exports = router;
