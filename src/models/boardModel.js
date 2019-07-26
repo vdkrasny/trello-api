@@ -1,6 +1,6 @@
-const Collection = require('./Collection');
+const Model = require('./Model');
 
-class Board extends Collection {
+class Board extends Model {
     constructor() {
         super('boards');
     }
