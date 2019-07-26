@@ -1,9 +1,8 @@
-const Joi = require('@hapi/joi');
 const Collection = require('./Collection');
 
 class User extends Collection {
-    constructor(schema) {
-        super('users', schema);
+    constructor() {
+        super('users');
     }
 
     async findByLogin(login) {
@@ -18,24 +17,4 @@ class User extends Collection {
     }
 }
 
-const schema = Joi.object()
-    .keys({
-        'login': Joi
-            .string()
-            .min(5)
-            .max(50)
-            .required(),
-        'password': Joi
-            .string()
-            .min(7)
-            .required(),
-        'role': Joi
-            .string()
-            .valid('user', 'admin')
-            .required(),
-        'id': Joi
-            .string()
-            .required()
-    });
-
-module.exports = new User(schema);
+module.exports = new User();

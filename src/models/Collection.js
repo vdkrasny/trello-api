@@ -1,10 +1,8 @@
-const Joi = require('@hapi/joi');
 const DatabaseClient = require('../../database/DatabaseClient');
 
 class Collection {
-    constructor(name, schema) {
+    constructor(name) {
         this._collectionClient = new DatabaseClient(name);
-        this._schema = schema;
     }
 
     async create(body = {}) {
@@ -17,7 +15,6 @@ class Collection {
             id: randomId
         };
 
-        this.validate(item);
         collection.push(item);
         await this.saveCollection(collection);
 
@@ -49,7 +46,6 @@ class Collection {
             ...body
         };
 
-        this.validate(updatedItem);
         collection[targetItemIndex] = updatedItem;
         await this.saveCollection(collection);
 
@@ -80,16 +76,6 @@ class Collection {
         const collection = await this._collectionClient.read();
 
         return collection;
-    }
-
-    validate(collectionItem) {
-        const validator = Joi.validate(collectionItem, this._schema);
-
-        if (validator.error) {
-            throw new Error(validator.error);
-        }
-
-        return undefined;
     }
 }
 
