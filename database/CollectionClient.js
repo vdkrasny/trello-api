@@ -1,12 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 
-class DatabaseClient {
+class CollectionClient {
     constructor(fileName) {
         this.filePath = path.join(__dirname, `${fileName}.json`);
     }
 
-    read() {
+    getCollection() {
         return new Promise(async (resolve, reject) => {
             const isFileExist = await this._isFileExist();
 
@@ -30,7 +30,7 @@ class DatabaseClient {
         });
     }
 
-    write(json) {
+    saveCollection(json) {
         return new Promise((resolve, reject) => {
             try {
                 const convertedJson = JSON.stringify(json);
@@ -65,4 +65,4 @@ class DatabaseClient {
     }
 }
 
-module.exports = DatabaseClient;
+module.exports = CollectionClient;

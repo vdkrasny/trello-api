@@ -1,10 +1,6 @@
-const DatabaseClient = require('../../database/DatabaseClient');
+const CollectionClient = require('../../database/CollectionClient');
 
-class Collection {
-    constructor(name) {
-        this._collectionClient = new DatabaseClient(name);
-    }
-
+class Collection extends CollectionClient {
     async create(body = {}) {
         const collection = await this.getCollection();
         const randomId = Math.random()
@@ -64,18 +60,6 @@ class Collection {
         await this.saveCollection(collection);
 
         return deletedItems[0];
-    }
-
-    async saveCollection(collection) {
-        await this._collectionClient.write(collection);
-
-        return undefined;
-    }
-
-    async getCollection() {
-        const collection = await this._collectionClient.read();
-
-        return collection;
     }
 }
 
