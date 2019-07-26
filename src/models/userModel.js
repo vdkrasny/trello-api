@@ -1,6 +1,6 @@
 const Model = require('./Model');
 
-class User extends Model {
+class UserModel extends Model {
     constructor() {
         super('users');
     }
@@ -17,4 +17,6 @@ class User extends Model {
     }
 }
 
-module.exports = new User();
+const userModelInstance = new UserModel();
+
+module.exports = userModelInstance;

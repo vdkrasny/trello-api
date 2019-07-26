@@ -1,9 +1,11 @@
 const Model = require('./Model');
 
-class Card extends Model {
+class CardModel extends Model {
     constructor() {
         super('cards');
     }
 }
 
-module.exports = new Card();
+const cardModelInstance = new CardModel();
+
+module.exports = cardModelInstance;
