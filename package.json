@@ -2,11 +2,11 @@
   "name": "trello-api",
   "version": "1.0.0",
   "description": "REST API which allows you to do simple CRUD operations with role permissions.",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env NODE_ENV=development nodemon index.js",
-    "prod": "cross-env NODE_ENV=production node index.js"
+    "start": "nodemon src/server.js",
+    "prod": "cross-env NODE_ENV=production node src/server.js"
   },
   "repository": {
     "type": "git",
