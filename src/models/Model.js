@@ -34,6 +34,16 @@ class Model extends CollectionClient {
         return foundItems;
     }
 
+    async findOne(conditions = {}) {
+        const foundItems = await this.find(conditions);
+
+        if (!foundItems) return undefined;
+
+        const firstFoundItem = foundItems[0];
+
+        return firstFoundItem;
+    }
+
     async findById(id) {
         const collection = await this.getCollection();
         const foundItem = collection.find(({ id: itemId }) => itemId === String(id));
