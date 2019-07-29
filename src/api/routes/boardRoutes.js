@@ -7,15 +7,16 @@ const BoardService = require('../../services/BoardService');
 const router = express.Router();
 const boardService = new BoardService();
 
-router.use(accessPermissions.forAuthorized);
-
 router.get(
     '/',
+    accessPermissions.forAuthorized,
     async (request, response, next) => {
         try {
             const boards = await boardService.findAll();
 
-            return response.json(boards);
+            return response
+                .status(200)
+                .json(boards);
         } catch (error) {
             return next(error);
         }
@@ -24,6 +25,7 @@ router.get(
 
 router.get(
     '/:boardId',
+    accessPermissions.forAuthorized,
     async (request, response, next) => {
         const { params: { boardId } } = request;
 
@@ -32,17 +34,18 @@ router.get(
 
             if (!foundBoard) return next(new Error('Not found'));
 
-            return response.json(foundBoard);
+            return response
+                .status(200)
+                .json(foundBoard);
         } catch (error) {
             return next(error);
         }
     }
 );
 
-router.use(accessPermissions.forAdmin);
-
 router.post(
     '/',
+    accessPermissions.forAdmin,
     validator(boardScheme),
     async (request, response, next) => {
         const { body } = request;
@@ -50,7 +53,9 @@ router.post(
         try {
             const boards = await boardService.create(body);
 
-            return response.json(boards);
+            return response
+                .status(201)
+                .json(boards);
         } catch (error) {
             return next(error);
         }
@@ -59,6 +64,7 @@ router.post(
 
 router.put(
     '/:boardId',
+    accessPermissions.forAdmin,
     validator(boardScheme),
     async (request, response, next) => {
         const {
@@ -71,7 +77,9 @@ router.put(
 
             if (!updatedBoard) return next(new Error('Not found'));
 
-            return response.json(updatedBoard);
+            return response
+                .status(204)
+                .end();
         } catch (error) {
             return next(error);
         }
@@ -80,6 +88,7 @@ router.put(
 
 router.delete(
     '/:boardId',
+    accessPermissions.forAdmin,
     async (request, response, next) => {
         const { params: { boardId } } = request;
 
@@ -88,7 +97,9 @@ router.delete(
 
             if (!deletedBoard) return next(new Error('Not found'));
 
-            return response.json(deletedBoard);
+            return response
+                .status(204)
+                .end();
         } catch (error) {
             return next(error);
         }

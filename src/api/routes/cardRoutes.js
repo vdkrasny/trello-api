@@ -7,15 +7,16 @@ const CardService = require('../../services/CardService');
 const router = express.Router();
 const cardService = new CardService();
 
-router.use(accessPermissions.forAuthorized);
-
 router.get(
     '/',
+    accessPermissions.forAuthorized,
     async (request, response, next) => {
         try {
             const cards = await cardService.findAll();
 
-            return response.json(cards);
+            return response
+                .status(200)
+                .json(cards);
         } catch (error) {
             return next(error);
         }
@@ -24,6 +25,7 @@ router.get(
 
 router.get(
     '/:cardId',
+    accessPermissions.forAuthorized,
     async (request, response, next) => {
         const { params: { cardId } } = request;
 
@@ -32,7 +34,9 @@ router.get(
 
             if (!foundCard) return next(new Error('Not found'));
 
-            return response.json(foundCard);
+            return response
+                .status(200)
+                .json(foundCard);
         } catch (error) {
             return next(error);
         }
@@ -41,6 +45,7 @@ router.get(
 
 router.post(
     '/',
+    accessPermissions.forAuthorized,
     validator(cardScheme),
     async (request, response, next) => {
         const { body } = request;
@@ -48,7 +53,9 @@ router.post(
         try {
             const cards = await cardService.create(body);
 
-            return response.json(cards);
+            return response
+                .status(201)
+                .json(cards);
         } catch (error) {
             return next(error);
         }
@@ -57,6 +64,7 @@ router.post(
 
 router.put(
     '/:cardId',
+    accessPermissions.forAuthorized,
     validator(cardScheme),
     async (request, response, next) => {
         const {
@@ -69,7 +77,9 @@ router.put(
 
             if (!updatedCard) return next(new Error('Not found'));
 
-            return response.json(updatedCard);
+            return response
+                .status(204)
+                .end();
         } catch (error) {
             return next(error);
         }
@@ -78,6 +88,7 @@ router.put(
 
 router.delete(
     '/:cardId',
+    accessPermissions.forAuthorized,
     async (request, response, next) => {
         const { params: { cardId } } = request;
 
@@ -86,7 +97,9 @@ router.delete(
 
             if (!deletedCard) return next(new Error('Not found'));
 
-            return response.json(deletedCard);
+            return response
+                .status(204)
+                .end();
         } catch (error) {
             return next(error);
         }
