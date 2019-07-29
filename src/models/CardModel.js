@@ -6,6 +6,4 @@ class CardModel extends Model {
     }
 }
 
-const cardModelInstance = new CardModel();
-
-module.exports = cardModelInstance;
+module.exports = CardModel;

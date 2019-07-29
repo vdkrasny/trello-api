@@ -6,6 +6,4 @@ class UserModel extends Model {
     }
 }
 
-const userModelInstance = new UserModel();
-
-module.exports = userModelInstance;
+module.exports = UserModel;

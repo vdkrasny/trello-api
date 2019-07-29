@@ -6,6 +6,4 @@ class BoardModel extends Model {
     }
 }
 
-const boardModelInstance = new BoardModel();
-
-module.exports = boardModelInstance;
+module.exports = BoardModel;
