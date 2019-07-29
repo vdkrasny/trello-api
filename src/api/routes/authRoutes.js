@@ -1,0 +1,49 @@
+const express = require('express');
+
+const validator = require('../middlewares/validator');
+const AuthService = require('../../services/AuthService');
+const { signupScheme, signinScheme } = require('../schemes');
+const config = require('../../config');
+
+const router = express.Router();
+const authService = new AuthService();
+
+router.post(
+    '/signup',
+    validator(signupScheme),
+    async (request, response, next) => {
+        try {
+            if (request.user) throw new Error('You are already authorized.');
+
+            const { user, token } = await authService.signUp(request.body);
+
+            return response
+                .status(201)
+                .json({ user, token });
+        } catch (error) {
+            return next(error);
+        }
+    }
+);
+
+router.post(
+    '/signin',
+    validator(signinScheme),
+    async (request, response, next) => {
+        try {
+            if (request.user) throw new Error('You are already authorized.');
+
+            const { user, token } = await authService.signIn(request.body);
+
+            response.setHeader(config.headers.authToken, token);
+
+            return response
+                .status(200)
+                .json({ user });
+        } catch (error) {
+            return next(error);
+        }
+    }
+);
+
+module.exports = router;
