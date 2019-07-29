@@ -4,7 +4,7 @@ const helmet = require('helmet');
 
 const config = require('./config');
 const routes = require('./routes');
-const { logger, errorHandler } = require('./middlewares');
+const { errorHandler } = require('./middlewares');
 
 const startServer = () => {
     const app = express();
@@ -16,12 +16,7 @@ const startServer = () => {
     app.use(errorHandler);
 
     app.listen(config.port, (error) => {
-        if (error) {
-            logger.error(error);
-            process.exit(1);
-        }
-
-        logger.info(`Server running on port ${config.port}!`);
+        if (error) process.exit(1);
     });
 };
 
