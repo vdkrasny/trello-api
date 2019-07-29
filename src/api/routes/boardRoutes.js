@@ -1,9 +1,8 @@
 const express = require('express');
 
-const validator = require('../middlewares/validator');
-const BoardService = require('../../services/BoardService');
+const { accessPermissions, validator } = require('../middlewares');
 const { boardScheme } = require('../schemes');
-const accessPermissions = require('../middlewares/accessPermissions');
+const BoardService = require('../../services/BoardService');
 
 const router = express.Router();
 const boardService = new BoardService();

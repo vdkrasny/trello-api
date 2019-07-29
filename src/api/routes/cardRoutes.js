@@ -1,9 +1,8 @@
 const express = require('express');
 
-const validator = require('../middlewares/validator');
-const CardService = require('../../services/CardService');
+const { accessPermissions, validator } = require('../middlewares');
 const { cardScheme } = require('../schemes');
-const accessPermissions = require('../middlewares/accessPermissions');
+const CardService = require('../../services/CardService');
 
 const router = express.Router();
 const cardService = new CardService();
