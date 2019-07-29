@@ -3,6 +3,7 @@ const express = require('express');
 const { accessPermissions, validator } = require('../middlewares');
 const { cardScheme } = require('../schemes');
 const CardService = require('../../services/CardService');
+const StatusError = require('../../helpers/StatusError');
 
 const router = express.Router();
 const cardService = new CardService();
@@ -32,7 +33,7 @@ router.get(
         try {
             const foundCard = await cardService.findById(cardId);
 
-            if (!foundCard) return next(new Error('Not found'));
+            if (!foundCard) return next(new StatusError(404, 'Not Found'));
 
             return response
                 .status(200)
@@ -75,7 +76,7 @@ router.put(
         try {
             const updatedCard = await cardService.findByIdAndUpdate(cardId, body);
 
-            if (!updatedCard) return next(new Error('Not found'));
+            if (!updatedCard) return next(new StatusError(404, 'Not Found'));
 
             return response
                 .status(204)
@@ -95,7 +96,7 @@ router.delete(
         try {
             const deletedCard = await cardService.findByIdAndDelete(cardId);
 
-            if (!deletedCard) return next(new Error('Not found'));
+            if (!deletedCard) return next(new StatusError(404, 'Not Found'));
 
             return response
                 .status(204)

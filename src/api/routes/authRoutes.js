@@ -4,6 +4,7 @@ const { validator } = require('../middlewares');
 const { signupScheme, signinScheme } = require('../schemes');
 const AuthService = require('../../services/AuthService');
 const config = require('../../config');
+const StatusError = require('../../helpers/StatusError');
 
 const router = express.Router();
 const authService = new AuthService();
@@ -13,7 +14,7 @@ router.post(
     validator(signupScheme),
     async (request, response, next) => {
         try {
-            if (request.user) throw new Error('You are already authorized.');
+            if (request.user) return next(new StatusError(400, 'You are already authorized.'));
 
             const { user, token } = await authService.signUp(request.body);
 
@@ -31,7 +32,7 @@ router.post(
     validator(signinScheme),
     async (request, response, next) => {
         try {
-            if (request.user) throw new Error('You are already authorized.');
+            if (request.user) return next(new StatusError(400, 'You are already authorized.'));
 
             const { user, token } = await authService.signIn(request.body);
 
