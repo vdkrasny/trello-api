@@ -12,5 +12,6 @@ module.exports = Object.freeze({
     },
     api: {
         prefix: '/api'
-    }
+    },
+    loggerLevel: process.env.LOGGER_LEVEL || 'silly'
 });

@@ -4,6 +4,7 @@ const helmet = require('helmet');
 
 const config = require('./config');
 const api = require('./api');
+const logger = require('./helpers/logger');
 
 const startServer = () => {
     const app = express();
@@ -14,7 +15,12 @@ const startServer = () => {
     app.use(config.api.prefix, api);
 
     app.listen(config.port, (error) => {
-        if (error) process.exit(1);
+        if (error) {
+            logger.log('error', error);
+            process.exit(1);
+        }
+
+        logger.log('info', `Server running on port ${config.port}!`);
     });
 };
 
