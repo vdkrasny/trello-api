@@ -8,74 +8,54 @@ class CardService {
     async create({
         name, description, estimate, status, dueDate, labels
     }) {
-        try {
-            const newCard = {
-                name,
-                description,
-                createdAt: new Date(),
-                estimate,
-                status,
-                dueDate,
-                labels
-            };
-            const createdCard = await this.cardModel.create(newCard);
+        const newCard = {
+            name,
+            description,
+            createdAt: new Date(),
+            estimate,
+            status,
+            dueDate,
+            labels
+        };
+        const createdCard = await this.cardModel.create(newCard);
 
-            return createdCard;
-        } catch (error) {
-            throw error;
-        }
+        return createdCard;
     }
 
     async findAll() {
-        try {
-            const cards = await this.cardModel.findAll();
+        const cards = await this.cardModel.findAll();
 
-            return cards;
-        } catch (error) {
-            throw error;
-        }
+        return cards;
     }
 
     async findById(cardId) {
-        try {
-            const foundCard = await this.cardModel.findById(cardId);
+        const foundCard = await this.cardModel.findById(cardId);
 
-            return foundCard;
-        } catch (error) {
-            throw error;
-        }
+        return foundCard;
     }
 
     async findByIdAndUpdate(cardId, {
         name, description, estimate, status, dueDate, labels
     }) {
-        try {
-            const updatedCard = await this.cardModel.findByIdAndUpdate(
-                cardId,
-                {
-                    name,
-                    description,
-                    estimate,
-                    status,
-                    dueDate,
-                    labels
-                }
-            );
+        const updatedCard = await this.cardModel.findByIdAndUpdate(
+            cardId,
+            {
+                name,
+                description,
+                estimate,
+                status,
+                dueDate,
+                labels
+            }
+        );
 
-            return updatedCard;
-        } catch (error) {
-            throw error;
-        }
+        return updatedCard;
     }
 
     async findByIdAndDelete(cardId) {
-        try {
-            const deletedCard = await this.cardModel.findByIdAndDelete(cardId);
+        const deletedCard = await this.cardModel.findByIdAndDelete(cardId);
 
-            return deletedCard;
-        } catch (error) {
-            throw error;
-        }
+        return deletedCard;
     }
 }
 

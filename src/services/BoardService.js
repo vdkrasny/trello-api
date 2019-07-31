@@ -6,66 +6,46 @@ class BoardService {
     }
 
     async create({ name, color, description }) {
-        try {
-            const newBoard = {
-                name,
-                color,
-                description,
-                createdAt: new Date()
-            };
-            const createdBoard = await this.boardModel.create(newBoard);
+        const newBoard = {
+            name,
+            color,
+            description,
+            createdAt: new Date()
+        };
+        const createdBoard = await this.boardModel.create(newBoard);
 
-            return createdBoard;
-        } catch (error) {
-            throw error;
-        }
+        return createdBoard;
     }
 
     async findAll() {
-        try {
-            const boards = await this.boardModel.findAll();
+        const boards = await this.boardModel.findAll();
 
-            return boards;
-        } catch (error) {
-            throw error;
-        }
+        return boards;
     }
 
     async findById(boardId) {
-        try {
-            const foundBoard = await this.boardModel.findById(boardId);
+        const foundBoard = await this.boardModel.findById(boardId);
 
-            return foundBoard;
-        } catch (error) {
-            throw error;
-        }
+        return foundBoard;
     }
 
     async findByIdAndUpdate(boardId, { name, color, description }) {
-        try {
-            const updatedBoard = await this.boardModel.findByIdAndUpdate(
-                boardId,
-                {
-                    name,
-                    color,
-                    description
-                }
-            );
+        const updatedBoard = await this.boardModel.findByIdAndUpdate(
+            boardId,
+            {
+                name,
+                color,
+                description
+            }
+        );
 
-            return updatedBoard;
-        } catch (error) {
-            throw error;
-        }
+        return updatedBoard;
     }
 
     async findByIdAndDelete(boardId) {
-        try {
-            const deletedBoard = await this.boardModel.findByIdAndDelete(boardId);
+        const deletedBoard = await this.boardModel.findByIdAndDelete(boardId);
 
-            return deletedBoard;
-        } catch (error) {
-            throw error;
-        }
+        return deletedBoard;
     }
 }
 

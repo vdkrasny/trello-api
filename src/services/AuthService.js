@@ -10,54 +10,46 @@ class AuthService {
     }
 
     async signUp({ login, password } = {}) {
-        try {
-            const foundUser = await this.userModel.findOne({ login });
+        const foundUser = await this.userModel.findOne({ login });
 
-            if (foundUser) throw new Error('This login is already registered.');
+        if (foundUser) throw new Error('This login is already registered.');
 
-            const hashedPassword = await bcrypt.hash(password, config.hashSalt);
+        const hashedPassword = await bcrypt.hash(password, config.hashSalt);
 
-            const newUser = await this.userModel.create({
-                login,
-                password: hashedPassword,
-                role: 'user'
-            });
-            const token = this._generateToken(newUser);
+        const newUser = await this.userModel.create({
+            login,
+            password: hashedPassword,
+            role: 'user'
+        });
+        const token = this._generateToken(newUser);
 
-            return {
-                user: {
-                    login: newUser.login,
-                    role: newUser.role
-                },
-                token
-            };
-        } catch (error) {
-            throw error;
-        }
+        return {
+            user: {
+                login: newUser.login,
+                role: newUser.role
+            },
+            token
+        };
     }
 
     async signIn({ login, password } = {}) {
-        try {
-            const foundUser = await this.userModel.findOne({ login });
+        const foundUser = await this.userModel.findOne({ login });
 
-            if (!foundUser) throw new Error('Username or password is incorrect.');
+        if (!foundUser) throw new Error('Username or password is incorrect.');
 
-            const isPasswordCorrect = await bcrypt.compare(password, foundUser.password);
+        const isPasswordCorrect = await bcrypt.compare(password, foundUser.password);
 
-            if (!isPasswordCorrect) throw new Error('Username or password is incorrect.');
+        if (!isPasswordCorrect) throw new Error('Username or password is incorrect.');
 
-            const token = this._generateToken(foundUser);
+        const token = this._generateToken(foundUser);
 
-            return {
-                user: {
-                    login: foundUser.login,
-                    role: foundUser.role
-                },
-                token
-            };
-        } catch (error) {
-            throw error;
-        }
+        return {
+            user: {
+                login: foundUser.login,
+                role: foundUser.role
+            },
+            token
+        };
     }
 
     _generateToken({ id, login, role } = {}) {
