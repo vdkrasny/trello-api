@@ -32,7 +32,7 @@ router.get(
             const foundCard = await cardService.findById(cardId);
 
             if (!foundCard) {
-                return next(new StatusError(404, 'Not Found'));
+                throw new StatusError(404, 'Not Found');
             }
 
             return response
@@ -75,7 +75,7 @@ router.put(
             const updatedCard = await cardService.findByIdAndUpdate(cardId, body);
 
             if (!updatedCard) {
-                return next(new StatusError(404, 'Not Found'));
+                throw new StatusError(404, 'Not Found');
             }
 
             return response
@@ -96,7 +96,7 @@ router.delete(
             const deletedCard = await cardService.findByIdAndDelete(cardId);
 
             if (!deletedCard) {
-                return next(new StatusError(404, 'Not Found'));
+                throw new StatusError(404, 'Not Found');
             }
 
             return response
