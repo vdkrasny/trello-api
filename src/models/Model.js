@@ -10,7 +10,9 @@ class Model extends CollectionClient {
     async find(conditions = {}) {
         const conditionsKeys = Object.keys(conditions);
 
-        if (!conditionsKeys.length) throw new Error('At list one search condition was expected, but it was not specified.');
+        if (!conditionsKeys.length) {
+            throw new Error('At list one search condition was expected, but it was not specified.');
+        }
 
         const collection = await this.getCollection();
         const firstConditionsKey = conditionsKeys[0];
@@ -19,17 +21,21 @@ class Model extends CollectionClient {
 
         foundItems = collection.filter(collectionItem => collectionItem[firstConditionsKey] === conditions[firstConditionsKey]);
 
-        if (!foundItems.length) return undefined;
+        if (!foundItems.length) {
+            return undefined;
+        }
 
-        if (!restConditionsKeys.length) return foundItems;
+        if (!restConditionsKeys.length) {
+            return foundItems;
+        }
 
         restConditionsKeys.forEach((key) => {
             foundItems = foundItems.filter(foundItem => foundItem[key] === conditions[key]);
-
-            return undefined;
         });
 
-        if (!foundItems.length) return undefined;
+        if (!foundItems.length) {
+            return undefined;
+        }
 
         return foundItems;
     }
@@ -37,7 +43,9 @@ class Model extends CollectionClient {
     async findOne(conditions = {}) {
         const foundItems = await this.find(conditions);
 
-        if (!foundItems) return undefined;
+        if (!foundItems) {
+            return undefined;
+        }
 
         const firstFoundItem = foundItems[0];
 

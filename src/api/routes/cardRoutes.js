@@ -33,7 +33,9 @@ router.get(
         try {
             const foundCard = await cardService.findById(cardId);
 
-            if (!foundCard) return next(new StatusError(404, 'Not Found'));
+            if (!foundCard) {
+                return next(new StatusError(404, 'Not Found'));
+            }
 
             return response
                 .status(200)
@@ -76,7 +78,9 @@ router.put(
         try {
             const updatedCard = await cardService.findByIdAndUpdate(cardId, body);
 
-            if (!updatedCard) return next(new StatusError(404, 'Not Found'));
+            if (!updatedCard) {
+                return next(new StatusError(404, 'Not Found'));
+            }
 
             return response
                 .status(204)
@@ -96,7 +100,9 @@ router.delete(
         try {
             const deletedCard = await cardService.findByIdAndDelete(cardId);
 
-            if (!deletedCard) return next(new StatusError(404, 'Not Found'));
+            if (!deletedCard) {
+                return next(new StatusError(404, 'Not Found'));
+            }
 
             return response
                 .status(204)

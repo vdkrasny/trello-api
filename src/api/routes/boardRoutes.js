@@ -33,7 +33,9 @@ router.get(
         try {
             const foundBoard = await boardService.findById(boardId);
 
-            if (!foundBoard) return next(new StatusError(404, 'Not Found'));
+            if (!foundBoard) {
+                return next(new StatusError(404, 'Not Found'));
+            }
 
             return response
                 .status(200)
@@ -76,7 +78,9 @@ router.put(
         try {
             const updatedBoard = await boardService.findByIdAndUpdate(boardId, body);
 
-            if (!updatedBoard) return next(new StatusError(404, 'Not Found'));
+            if (!updatedBoard) {
+                return next(new StatusError(404, 'Not Found'));
+            }
 
             return response
                 .status(204)
@@ -96,7 +100,9 @@ router.delete(
         try {
             const deletedBoard = await boardService.findByIdAndDelete(boardId);
 
-            if (!deletedBoard) return next(new StatusError(404, 'Not Found'));
+            if (!deletedBoard) {
+                return next(new StatusError(404, 'Not Found'));
+            }
 
             return response
                 .status(204)

@@ -4,7 +4,9 @@ class AccessPermissions {
     forAuthorized(request, response, next) {
         const { user } = request;
 
-        if (!user) return next(new StatusError(401, 'You are not authorized'));
+        if (!user) {
+            return next(new StatusError(401, 'You are not authorized'));
+        }
 
         return next();
     }
@@ -12,7 +14,9 @@ class AccessPermissions {
     forAdmin(request, response, next) {
         const { user } = request;
 
-        if (user.role !== 'admin') return next(new StatusError(403, 'You do not have access to this resource'));
+        if (user.role !== 'admin') {
+            return next(new StatusError(403, 'You do not have access to this resource'));
+        }
 
         return next();
     }

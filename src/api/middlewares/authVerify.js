@@ -6,7 +6,9 @@ const StatusError = require('../../helpers/StatusError');
 module.exports = (request, response, next) => {
     const token = request.headers[config.headers.authToken];
 
-    if (!token) return next();
+    if (!token) {
+        return next();
+    }
 
     try {
         const verifiedUser = jwt.verify(token, config.jwt.secret);

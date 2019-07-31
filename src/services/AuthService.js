@@ -12,7 +12,9 @@ class AuthService {
     async signUp({ login, password } = {}) {
         const foundUser = await this.userModel.findOne({ login });
 
-        if (foundUser) throw new Error('This login is already registered.');
+        if (foundUser) {
+            throw new Error('This login is already registered.');
+        }
 
         const hashedPassword = await bcrypt.hash(password, config.hashSalt);
 
@@ -35,11 +37,15 @@ class AuthService {
     async signIn({ login, password } = {}) {
         const foundUser = await this.userModel.findOne({ login });
 
-        if (!foundUser) throw new Error('Username or password is incorrect.');
+        if (!foundUser) {
+            throw new Error('Username or password is incorrect.');
+        }
 
         const isPasswordCorrect = await bcrypt.compare(password, foundUser.password);
 
-        if (!isPasswordCorrect) throw new Error('Username or password is incorrect.');
+        if (!isPasswordCorrect) {
+            throw new Error('Username or password is incorrect.');
+        }
 
         const token = this._generateToken(foundUser);
 
