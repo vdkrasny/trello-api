@@ -13,7 +13,7 @@ router.get(
     accessPermissions.forAuthorized,
     async (request, response, next) => {
         try {
-            const boards = await boardService.findAll();
+            const boards = await boardService.getAll();
 
             return response
                 .status(200)

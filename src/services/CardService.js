@@ -22,8 +22,8 @@ class CardService {
         return createdCard;
     }
 
-    async findAll() {
-        const cards = await this.cardModel.findAll();
+    async getAll() {
+        const cards = await this.cardModel.getAll();
 
         return cards;
     }

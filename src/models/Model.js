@@ -1,7 +1,7 @@
 const CollectionClient = require('../../database/CollectionClient');
 
 class Model extends CollectionClient {
-    async findAll() {
+    async getAll() {
         const collection = await this.getCollection();
 
         return collection;

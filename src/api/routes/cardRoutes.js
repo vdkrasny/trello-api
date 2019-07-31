@@ -13,7 +13,7 @@ router.get(
     accessPermissions.forAuthorized,
     async (request, response, next) => {
         try {
-            const cards = await cardService.findAll();
+            const cards = await cardService.getAll();
 
             return response
                 .status(200)

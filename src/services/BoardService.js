@@ -17,8 +17,8 @@ class BoardService {
         return createdBoard;
     }
 
-    async findAll() {
-        const boards = await this.boardModel.findAll();
+    async getAll() {
+        const boards = await this.boardModel.getAll();
 
         return boards;
     }
