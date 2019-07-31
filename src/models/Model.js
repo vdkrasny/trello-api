@@ -94,7 +94,11 @@ class Model extends CollectionClient {
         const randomId = Math.random()
             .toString(36)
             .substr(2, 9);
-        const createdItem = { ...body, id: randomId };
+        const createdItem = {
+            ...body,
+            createdAt: new Date(),
+            id: randomId
+        };
 
         collection.push(createdItem);
         await this.saveCollection(collection);

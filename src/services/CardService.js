@@ -11,7 +11,6 @@ class CardService {
         const newCard = {
             name,
             description,
-            createdAt: new Date(),
             estimate,
             status,
             dueDate,

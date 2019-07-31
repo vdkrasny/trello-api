@@ -9,8 +9,7 @@ class BoardService {
         const newBoard = {
             name,
             color,
-            description,
-            createdAt: new Date()
+            description
         };
         const createdBoard = await this.boardModel.create(newBoard);
 
