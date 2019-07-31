@@ -7,7 +7,7 @@ module.exports = (request, response, next) => {
     const token = request.headers[config.headers.authToken];
 
     if (!token) {
-        return next();
+        return next(new StatusError(401, 'You are not authorized'));
     }
 
     try {

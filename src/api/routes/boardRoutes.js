@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { accessPermissions, validator } = require('../middlewares');
+const { validator, verifyAccess } = require('../middlewares');
 const { boardScheme } = require('../schemes');
 const BoardService = require('../../services/BoardService');
 const StatusError = require('../../helpers/StatusError');
@@ -10,7 +10,6 @@ const boardService = new BoardService();
 
 router.get(
     '/',
-    accessPermissions.forAuthorized,
     async (request, response, next) => {
         try {
             const boards = await boardService.getAll();
@@ -26,7 +25,6 @@ router.get(
 
 router.get(
     '/:boardId',
-    accessPermissions.forAuthorized,
     async (request, response, next) => {
         const { params: { boardId } } = request;
 
@@ -48,7 +46,7 @@ router.get(
 
 router.post(
     '/',
-    accessPermissions.forAdmin,
+    verifyAccess,
     validator(boardScheme),
     async (request, response, next) => {
         const { body } = request;
@@ -67,7 +65,7 @@ router.post(
 
 router.put(
     '/:boardId',
-    accessPermissions.forAdmin,
+    verifyAccess,
     validator(boardScheme),
     async (request, response, next) => {
         const {
@@ -93,7 +91,7 @@ router.put(
 
 router.delete(
     '/:boardId',
-    accessPermissions.forAdmin,
+    verifyAccess,
     async (request, response, next) => {
         const { params: { boardId } } = request;
 

@@ -4,13 +4,13 @@ const authRoutes = require('./routes/authRoutes');
 const boardRoutes = require('./routes/boardRoutes');
 const cardsRoutes = require('./routes/cardRoutes');
 const {
-    authVerify, errorHandler, logger, notFound
+    errorHandler, logger, notFound, verifyAuth
 } = require('./middlewares');
 
 const router = express.Router();
 
 router.use('/auth', authRoutes);
-router.all('*', authVerify);
+router.all('*', verifyAuth);
 router.use('*', logger);
 router.use('/boards', boardRoutes);
 router.use('/cards', cardsRoutes);

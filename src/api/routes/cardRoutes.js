@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { accessPermissions, validator } = require('../middlewares');
+const { validator } = require('../middlewares');
 const { cardScheme } = require('../schemes');
 const CardService = require('../../services/CardService');
 const StatusError = require('../../helpers/StatusError');
@@ -10,7 +10,6 @@ const cardService = new CardService();
 
 router.get(
     '/',
-    accessPermissions.forAuthorized,
     async (request, response, next) => {
         try {
             const cards = await cardService.getAll();
@@ -26,7 +25,6 @@ router.get(
 
 router.get(
     '/:cardId',
-    accessPermissions.forAuthorized,
     async (request, response, next) => {
         const { params: { cardId } } = request;
 
@@ -48,7 +46,6 @@ router.get(
 
 router.post(
     '/',
-    accessPermissions.forAuthorized,
     validator(cardScheme),
     async (request, response, next) => {
         const { body } = request;
@@ -67,7 +64,6 @@ router.post(
 
 router.put(
     '/:cardId',
-    accessPermissions.forAuthorized,
     validator(cardScheme),
     async (request, response, next) => {
         const {
@@ -93,7 +89,6 @@ router.put(
 
 router.delete(
     '/:cardId',
-    accessPermissions.forAuthorized,
     async (request, response, next) => {
         const { params: { cardId } } = request;
 
