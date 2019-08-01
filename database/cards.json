@@ -1,0 +1,39 @@
+[
+  {
+    "name": "card 1",
+    "description": "description of the card 1",
+    "createdAt": "2019-06-27T15:05:52.809Z",
+    "estimate": "2h",
+    "status": "to-do",
+    "dueDate": "12-12-2019",
+    "labels": [
+      "js"
+    ],
+    "id": "30amsjas6"
+  },
+  {
+    "name": "card 4",
+    "description": "description of the card 2",
+    "createdAt": "2019-06-27T15:07:28.324Z",
+    "estimate": "20h",
+    "status": "in-progress",
+    "dueDate": "2019-08-14",
+    "labels": [
+      "js",
+      "css"
+    ],
+    "id": "pflbtc8it"
+  },
+  {
+    "name": "card 3",
+    "description": "description of the card 3",
+    "createdAt": "2019-06-27T15:09:21.822Z",
+    "estimate": "5h",
+    "status": "done",
+    "dueDate": "2019-06-27",
+    "labels": [
+      "node"
+    ],
+    "id": "p8wos1zfg"
+  }
+]

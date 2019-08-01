@@ -1,0 +1,37 @@
+{
+  "name": "trello-api",
+  "version": "1.0.0",
+  "description": "REST API which allows you to do simple CRUD operations with role permissions.",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/server.js",
+    "prod": "cross-env NODE_ENV=production node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vdkrasny/trello-api.git"
+  },
+  "author": "vdkrasny",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vdkrasny/trello-api/issues"
+  },
+  "homepage": "https://github.com/vdkrasny/trello-api#readme",
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "eslint": "^6.0.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.3",
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "@hapi/joi": "^15.1.0",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "helmet": "^3.18.0",
+    "jsonwebtoken": "^8.5.1",
+    "winston": "^3.2.1"
+  }
+}

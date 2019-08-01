@@ -8,6 +8,10 @@ You need to build REST API which allows you to do simple CRUD operations with ro
 
 32
 
+## Total time (h)
+
+39
+
 ## Topics
 
 -   Architecture principles
@@ -19,7 +23,7 @@ You need to build REST API which allows you to do simple CRUD operations with ro
 
 ## Requirements
 
-1. Create CRUD operations for the next entities: [board](assets/board.json), [card](assets/card.json). Each json files should contains at least 3 records by default. There are 2 types of users: Admin and simple user. Only admins can create, update and delete boards.
+1. Create CRUD operations for the next entities: [boards](db/boards.json), [cards](db/cards.json). Each json files should contains at least 3 records by default. There are 2 types of users: Admin and simple user. Only admins can create, update and delete boards.
 
     Board fields:
 
