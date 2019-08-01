@@ -27,13 +27,13 @@ class CardService {
         return cards;
     }
 
-    async findById(cardId) {
+    async getById(cardId) {
         const foundCard = await this.cardModel.findById(cardId);
 
         return foundCard;
     }
 
-    async findByIdAndUpdate(cardId, {
+    async updateById(cardId, {
         name, description, estimate, status, dueDate, labels
     }) {
         const updatedCard = await this.cardModel.findByIdAndUpdate(
@@ -51,7 +51,7 @@ class CardService {
         return updatedCard;
     }
 
-    async findByIdAndDelete(cardId) {
+    async deleteById(cardId) {
         const deletedCard = await this.cardModel.findByIdAndDelete(cardId);
 
         return deletedCard;

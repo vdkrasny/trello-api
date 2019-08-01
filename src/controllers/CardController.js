@@ -15,7 +15,7 @@ class CardController {
     static async getById(request, response) {
         const { params: { cardId } } = request;
 
-        const foundCard = await cardService.findById(cardId);
+        const foundCard = await cardService.getById(cardId);
 
         if (!foundCard) {
             throw new StatusError(404, 'Not Found');
@@ -42,7 +42,7 @@ class CardController {
             params: { cardId }
         } = request;
 
-        const updatedCard = await cardService.findByIdAndUpdate(cardId, body);
+        const updatedCard = await cardService.updateById(cardId, body);
 
         if (!updatedCard) {
             throw new StatusError(404, 'Not Found');
@@ -56,7 +56,7 @@ class CardController {
     static async deleteById(request, response) {
         const { params: { cardId } } = request;
 
-        const deletedCard = await cardService.findByIdAndDelete(cardId);
+        const deletedCard = await cardService.deleteById(cardId);
 
         if (!deletedCard) {
             throw new StatusError(404, 'Not Found');

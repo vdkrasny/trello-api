@@ -14,8 +14,8 @@ class AuthController {
             .json({ user });
     }
 
-    static async signIn(request, response) {
-        const { user, token } = await authService.signIn(request.body);
+    static async logIn(request, response) {
+        const { user, token } = await authService.logIn(request.body);
 
         response.setHeader(config.headers.authToken, token);
 

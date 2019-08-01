@@ -34,7 +34,7 @@ class AuthService {
         };
     }
 
-    async signIn({ login, password } = {}) {
+    async logIn({ login, password } = {}) {
         const foundUser = await this.userModel.findOne({ login });
 
         if (!foundUser) {

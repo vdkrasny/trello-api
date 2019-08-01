@@ -15,7 +15,7 @@ class BoardController {
     static async getById(request, response) {
         const { params: { boardId } } = request;
 
-        const foundBoard = await boardService.findById(boardId);
+        const foundBoard = await boardService.getById(boardId);
 
         if (!foundBoard) {
             throw new StatusError(404, 'Not Found');
@@ -42,7 +42,7 @@ class BoardController {
             params: { boardId }
         } = request;
 
-        const updatedBoard = await boardService.findByIdAndUpdate(boardId, body);
+        const updatedBoard = await boardService.updateById(boardId, body);
 
         if (!updatedBoard) {
             throw new StatusError(404, 'Not Found');
@@ -56,7 +56,7 @@ class BoardController {
     static async deleteById(request, response) {
         const { params: { boardId } } = request;
 
-        const deletedBoard = await boardService.findByIdAndDelete(boardId);
+        const deletedBoard = await boardService.deleteById(boardId);
 
         if (!deletedBoard) {
             throw new StatusError(404, 'Not Found');

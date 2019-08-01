@@ -22,13 +22,13 @@ class BoardService {
         return boards;
     }
 
-    async findById(boardId) {
+    async getById(boardId) {
         const foundBoard = await this.boardModel.findById(boardId);
 
         return foundBoard;
     }
 
-    async findByIdAndUpdate(boardId, { name, color, description }) {
+    async updateById(boardId, { name, color, description }) {
         const updatedBoard = await this.boardModel.findByIdAndUpdate(
             boardId,
             {
@@ -41,7 +41,7 @@ class BoardService {
         return updatedBoard;
     }
 
-    async findByIdAndDelete(boardId) {
+    async deleteById(boardId) {
         const deletedBoard = await this.boardModel.findByIdAndDelete(boardId);
 
         return deletedBoard;

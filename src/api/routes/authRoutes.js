@@ -8,14 +8,14 @@ const router = express.Router();
 
 router.post(
     '/signup',
-    middlewares.validator(schemes.signinScheme),
+    middlewares.bodyValidator(schemes.signinScheme),
     middlewares.requestCover(AuthController.signUp)
 );
 
 router.post(
-    '/signin',
-    middlewares.validator(schemes.signinScheme),
-    middlewares.requestCover(AuthController.signIn)
+    '/login',
+    middlewares.bodyValidator(schemes.loginScheme),
+    middlewares.requestCover(AuthController.logIn)
 );
 
 module.exports = router;

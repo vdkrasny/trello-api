@@ -19,14 +19,14 @@ router.get(
 router.post(
     '/',
     middlewares.verifyAccess,
-    middlewares.validator(schemes.boardScheme),
+    middlewares.bodyValidator(schemes.boardScheme),
     middlewares.requestCover(BoardController.create)
 );
 
 router.put(
     '/:boardId',
     middlewares.verifyAccess,
-    middlewares.validator(schemes.boardScheme),
+    middlewares.bodyValidator(schemes.boardScheme),
     middlewares.requestCover(BoardController.updateById)
 );
 

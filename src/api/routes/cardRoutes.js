@@ -18,13 +18,13 @@ router.get(
 
 router.post(
     '/',
-    middlewares.validator(schemes.cardScheme),
+    middlewares.bodyValidator(schemes.cardScheme),
     middlewares.requestCover(CardController.create)
 );
 
 router.put(
     '/:cardId',
-    middlewares.validator(schemes.cardScheme),
+    middlewares.bodyValidator(schemes.cardScheme),
     middlewares.requestCover(CardController.updateById)
 );
 

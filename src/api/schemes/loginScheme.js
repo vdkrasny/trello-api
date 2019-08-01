@@ -1,6 +1,6 @@
 const joi = require('@hapi/joi');
 
-const signinScheme = joi
+const loginScheme = joi
     .object()
     .keys({
         login: joi
@@ -14,4 +14,4 @@ const signinScheme = joi
             .required()
     });
 
-module.exports = signinScheme;
+module.exports = loginScheme;

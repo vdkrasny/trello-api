@@ -1,11 +1,11 @@
 const boardScheme = require('./boardScheme');
 const cardScheme = require('./cardScheme');
+const loginScheme = require('./loginScheme');
 const signupScheme = require('./signupScheme');
-const signinScheme = require('./signinScheme');
 
 module.exports = {
     boardScheme,
     cardScheme,
-    signupScheme,
-    signinScheme
+    loginScheme,
+    signupScheme
 };
