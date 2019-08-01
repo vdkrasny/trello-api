@@ -1,7 +1,7 @@
 const express = require('express');
 
-const { validator } = require('../middlewares');
-const { cardScheme } = require('../schemes');
+const middlewares = require('../middlewares');
+const schemes = require('../schemes');
 const CardService = require('../../services/CardService');
 const StatusError = require('../../helpers/StatusError');
 
@@ -46,7 +46,7 @@ router.get(
 
 router.post(
     '/',
-    validator(cardScheme),
+    middlewares.validator(schemes.cardScheme),
     async (request, response, next) => {
         const { body } = request;
 
@@ -64,7 +64,7 @@ router.post(
 
 router.put(
     '/:cardId',
-    validator(cardScheme),
+    middlewares.validator(schemes.cardScheme),
     async (request, response, next) => {
         const {
             body,

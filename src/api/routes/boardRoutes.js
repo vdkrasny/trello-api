@@ -1,7 +1,7 @@
 const express = require('express');
 
-const { validator, verifyAccess } = require('../middlewares');
-const { boardScheme } = require('../schemes');
+const middlewares = require('../middlewares');
+const schemes = require('../schemes');
 const BoardService = require('../../services/BoardService');
 const StatusError = require('../../helpers/StatusError');
 
@@ -46,8 +46,8 @@ router.get(
 
 router.post(
     '/',
-    verifyAccess,
-    validator(boardScheme),
+    middlewares.verifyAccess,
+    middlewares.validator(schemes.boardScheme),
     async (request, response, next) => {
         const { body } = request;
 
@@ -65,8 +65,8 @@ router.post(
 
 router.put(
     '/:boardId',
-    verifyAccess,
-    validator(boardScheme),
+    middlewares.verifyAccess,
+    middlewares.validator(schemes.boardScheme),
     async (request, response, next) => {
         const {
             body,
@@ -91,7 +91,7 @@ router.put(
 
 router.delete(
     '/:boardId',
-    verifyAccess,
+    middlewares.verifyAccess,
     async (request, response, next) => {
         const { params: { boardId } } = request;
 

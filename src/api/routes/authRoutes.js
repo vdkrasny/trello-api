@@ -1,7 +1,7 @@
 const express = require('express');
 
-const { validator } = require('../middlewares');
-const { signupScheme, signinScheme } = require('../schemes');
+const middlewares = require('../middlewares');
+const schemes = require('../schemes');
 const AuthService = require('../../services/AuthService');
 const config = require('../../config');
 
@@ -10,7 +10,7 @@ const authService = new AuthService();
 
 router.post(
     '/signup',
-    validator(signupScheme),
+    middlewares.validator(schemes.signinScheme),
     async (request, response, next) => {
         try {
             const { user, token } = await authService.signUp(request.body);
@@ -28,7 +28,7 @@ router.post(
 
 router.post(
     '/signin',
-    validator(signinScheme),
+    middlewares.validator(schemes.signinScheme),
     async (request, response, next) => {
         try {
             const { user, token } = await authService.signIn(request.body);
