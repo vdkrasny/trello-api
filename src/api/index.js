@@ -7,12 +7,14 @@ const middlewares = require('./middlewares');
 
 const router = express.Router();
 
+router.use(middlewares.requestDetails);
+router.use(middlewares.activityLogger);
 router.use('/auth', authRoutes);
-router.all('*', middlewares.verifyAuth);
-router.use('*', middlewares.logger);
+router.use(middlewares.verifyAuth);
 router.use('/boards', boardRoutes);
 router.use('/cards', cardsRoutes);
 router.use(middlewares.notFound);
+router.use(middlewares.errorLogger);
 router.use(middlewares.errorHandler);
 
 module.exports = router;

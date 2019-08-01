@@ -1,41 +1,13 @@
-const logger = require('../../helpers/logger');
+const StatusError = require('../../errors/StatusError');
 
 module.exports = (error, request, response, next) => {
-    const { status, message } = error;
-    const {
-        user = {
-            login: 'unauthorized',
-            role: 'guest'
-        },
-        baseUrl: endpoint,
-        body,
-        ip,
-        method
-    } = request;
-
-    if (status) {
-        const requestDetails = {
-            endpoint,
-            method,
-            ip,
-            body
-        };
-
-        logger.log(
-            'debug',
-            `The user [${user.login} | ${user.role}] received an error message: %o. Request details: %o`,
-            message,
-            requestDetails
-        );
-
+    if (error instanceof StatusError) {
         return response
-            .status(status)
+            .status(error.status || 500)
             .json({
-                error: { message }
+                error: { message: error.message }
             });
     }
-
-    logger.log('error', error);
 
     return response
         .status(500)
