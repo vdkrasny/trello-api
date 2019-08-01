@@ -2,110 +2,35 @@ const express = require('express');
 
 const middlewares = require('../middlewares');
 const schemes = require('../schemes');
-const CardService = require('../../services/CardService');
-const StatusError = require('../../helpers/StatusError');
+const CardController = require('../../controllers/CardController');
 
 const router = express.Router();
-const cardService = new CardService();
 
 router.get(
     '/',
-    async (request, response, next) => {
-        try {
-            const cards = await cardService.getAll();
-
-            return response
-                .status(200)
-                .json(cards);
-        } catch (error) {
-            return next(error);
-        }
-    }
+    middlewares.requestCover(CardController.getAll)
 );
 
 router.get(
     '/:cardId',
-    async (request, response, next) => {
-        const { params: { cardId } } = request;
-
-        try {
-            const foundCard = await cardService.findById(cardId);
-
-            if (!foundCard) {
-                throw new StatusError(404, 'Not Found');
-            }
-
-            return response
-                .status(200)
-                .json(foundCard);
-        } catch (error) {
-            return next(error);
-        }
-    }
+    middlewares.requestCover(CardController.getById)
 );
 
 router.post(
     '/',
     middlewares.validator(schemes.cardScheme),
-    async (request, response, next) => {
-        const { body } = request;
-
-        try {
-            const cards = await cardService.create(body);
-
-            return response
-                .status(201)
-                .json(cards);
-        } catch (error) {
-            return next(error);
-        }
-    }
+    middlewares.requestCover(CardController.create)
 );
 
 router.put(
     '/:cardId',
     middlewares.validator(schemes.cardScheme),
-    async (request, response, next) => {
-        const {
-            body,
-            params: { cardId }
-        } = request;
-
-        try {
-            const updatedCard = await cardService.findByIdAndUpdate(cardId, body);
-
-            if (!updatedCard) {
-                throw new StatusError(404, 'Not Found');
-            }
-
-            return response
-                .status(204)
-                .end();
-        } catch (error) {
-            return next(error);
-        }
-    }
+    middlewares.requestCover(CardController.updateById)
 );
 
 router.delete(
     '/:cardId',
-    async (request, response, next) => {
-        const { params: { cardId } } = request;
-
-        try {
-            const deletedCard = await cardService.findByIdAndDelete(cardId);
-
-            if (!deletedCard) {
-                throw new StatusError(404, 'Not Found');
-            }
-
-            return response
-                .status(204)
-                .end();
-        } catch (error) {
-            return next(error);
-        }
-    }
+    middlewares.requestCover(CardController.deleteById)
 );
 
 module.exports = router;

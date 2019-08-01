@@ -2,113 +2,38 @@ const express = require('express');
 
 const middlewares = require('../middlewares');
 const schemes = require('../schemes');
-const BoardService = require('../../services/BoardService');
-const StatusError = require('../../helpers/StatusError');
+const BoardController = require('../../controllers/BoardController');
 
 const router = express.Router();
-const boardService = new BoardService();
 
 router.get(
     '/',
-    async (request, response, next) => {
-        try {
-            const boards = await boardService.getAll();
-
-            return response
-                .status(200)
-                .json(boards);
-        } catch (error) {
-            return next(error);
-        }
-    }
+    middlewares.requestCover(BoardController.getAll)
 );
 
 router.get(
     '/:boardId',
-    async (request, response, next) => {
-        const { params: { boardId } } = request;
-
-        try {
-            const foundBoard = await boardService.findById(boardId);
-
-            if (!foundBoard) {
-                throw new StatusError(404, 'Not Found');
-            }
-
-            return response
-                .status(200)
-                .json(foundBoard);
-        } catch (error) {
-            return next(error);
-        }
-    }
+    middlewares.requestCover(BoardController.getById)
 );
 
 router.post(
     '/',
     middlewares.verifyAccess,
     middlewares.validator(schemes.boardScheme),
-    async (request, response, next) => {
-        const { body } = request;
-
-        try {
-            const boards = await boardService.create(body);
-
-            return response
-                .status(201)
-                .json(boards);
-        } catch (error) {
-            return next(error);
-        }
-    }
+    middlewares.requestCover(BoardController.create)
 );
 
 router.put(
     '/:boardId',
     middlewares.verifyAccess,
     middlewares.validator(schemes.boardScheme),
-    async (request, response, next) => {
-        const {
-            body,
-            params: { boardId }
-        } = request;
-
-        try {
-            const updatedBoard = await boardService.findByIdAndUpdate(boardId, body);
-
-            if (!updatedBoard) {
-                throw new StatusError(404, 'Not Found');
-            }
-
-            return response
-                .status(204)
-                .end();
-        } catch (error) {
-            return next(error);
-        }
-    }
+    middlewares.requestCover(BoardController.updateById)
 );
 
 router.delete(
     '/:boardId',
     middlewares.verifyAccess,
-    async (request, response, next) => {
-        const { params: { boardId } } = request;
-
-        try {
-            const deletedBoard = await boardService.findByIdAndDelete(boardId);
-
-            if (!deletedBoard) {
-                throw new StatusError(404, 'Not Found');
-            }
-
-            return response
-                .status(204)
-                .end();
-        } catch (error) {
-            return next(error);
-        }
-    }
+    middlewares.requestCover(BoardController.deleteById)
 );
 
 module.exports = router;
