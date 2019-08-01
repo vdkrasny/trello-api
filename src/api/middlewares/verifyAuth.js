@@ -1,13 +1,14 @@
 const jwt = require('jsonwebtoken');
 
+const AuthorizationError = require('../../errors/AuthorizationError');
+const ValidationError = require('../../errors/ValidationError');
 const config = require('../../config');
-const StatusError = require('../../helpers/StatusError');
 
 module.exports = (request, response, next) => {
     const token = request.headers[config.headers.authToken];
 
     if (!token) {
-        return next(new StatusError(401, 'You are not authorized'));
+        return next(new AuthorizationError('You are not authorized'));
     }
 
     try {
@@ -17,6 +18,6 @@ module.exports = (request, response, next) => {
 
         return next();
     } catch (error) {
-        return next(new StatusError(400, 'Invalid token.'));
+        return next(new ValidationError('Invalid token'));
     }
 };

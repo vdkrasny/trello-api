@@ -1,4 +1,4 @@
-const StatusError = require('../helpers/StatusError');
+const NotFoundError = require('../errors/NotFoundError');
 const CardService = require('../services/CardService');
 
 const cardService = new CardService();
@@ -18,7 +18,7 @@ class CardController {
         const foundCard = await cardService.getById(cardId);
 
         if (!foundCard) {
-            throw new StatusError(404, 'Not Found');
+            throw new NotFoundError('The requested Card was not found');
         }
 
         return response
@@ -45,7 +45,7 @@ class CardController {
         const updatedCard = await cardService.updateById(cardId, body);
 
         if (!updatedCard) {
-            throw new StatusError(404, 'Not Found');
+            throw new NotFoundError('The requested Card was not found');
         }
 
         return response
@@ -59,7 +59,7 @@ class CardController {
         const deletedCard = await cardService.deleteById(cardId);
 
         if (!deletedCard) {
-            throw new StatusError(404, 'Not Found');
+            throw new NotFoundError('The requested Card was not found');
         }
 
         return response

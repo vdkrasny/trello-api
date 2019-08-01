@@ -1,4 +1,4 @@
-const StatusError = require('../helpers/StatusError');
+const NotFoundError = require('../errors/NotFoundError');
 const BoardService = require('../services/BoardService');
 
 const boardService = new BoardService();
@@ -18,7 +18,7 @@ class BoardController {
         const foundBoard = await boardService.getById(boardId);
 
         if (!foundBoard) {
-            throw new StatusError(404, 'Not Found');
+            throw new NotFoundError('The requested Board was not found');
         }
 
         return response
@@ -45,7 +45,7 @@ class BoardController {
         const updatedBoard = await boardService.updateById(boardId, body);
 
         if (!updatedBoard) {
-            throw new StatusError(404, 'Not Found');
+            throw new NotFoundError('The requested Board was not found');
         }
 
         return response
@@ -59,7 +59,7 @@ class BoardController {
         const deletedBoard = await boardService.deleteById(boardId);
 
         if (!deletedBoard) {
-            throw new StatusError(404, 'Not Found');
+            throw new NotFoundError('The requested Board was not found');
         }
 
         return response

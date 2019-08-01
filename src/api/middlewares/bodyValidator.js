@@ -1,6 +1,6 @@
 const joi = require('@hapi/joi');
 
-const StatusError = require('../../helpers/StatusError');
+const ValidationError = require('../../errors/ValidationError');
 
 module.exports = schema => (request, response, next) => {
     const validator = joi.validate(request.body, schema);
@@ -9,5 +9,5 @@ module.exports = schema => (request, response, next) => {
         return next();
     }
 
-    return next(new StatusError(400, validator.error.details[0].message));
+    return next(new ValidationError(validator.error.details[0].message));
 };
