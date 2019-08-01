@@ -8,6 +8,10 @@ You need to build REST API which allows you to do simple CRUD operations with ro
 
 32
 
+## Total time (h)
+
+39
+
 ## Topics
 
 -   Architecture principles
