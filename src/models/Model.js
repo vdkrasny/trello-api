@@ -22,7 +22,7 @@ class Model extends CollectionClient {
         foundItems = collection.filter(collectionItem => collectionItem[firstConditionsKey] === conditions[firstConditionsKey]);
 
         if (!foundItems.length) {
-            return undefined;
+            return null;
         }
 
         if (!restConditionsKeys.length) {
@@ -34,7 +34,7 @@ class Model extends CollectionClient {
         });
 
         if (!foundItems.length) {
-            return undefined;
+            return null;
         }
 
         return foundItems;
@@ -44,7 +44,7 @@ class Model extends CollectionClient {
         const foundItems = await this.find(conditions);
 
         if (!foundItems) {
-            return undefined;
+            return null;
         }
 
         const firstFoundItem = foundItems[0];
@@ -54,10 +54,10 @@ class Model extends CollectionClient {
 
     async findById(id) {
         const collection = await this.getCollection();
-        const foundItem = collection.find(({ id: itemId }) => itemId === String(id));
+        const foundItem = collection.find(({ id: itemId }) => itemId === id);
 
         if (!foundItem) {
-            return undefined;
+            return null;
         }
 
         return foundItem;
@@ -65,10 +65,10 @@ class Model extends CollectionClient {
 
     async findByIdAndUpdate(id, body = {}) {
         const collection = await this.getCollection();
-        const foundItemIndex = collection.findIndex(({ id: itemId }) => itemId === String(id));
+        const foundItemIndex = collection.findIndex(({ id: itemId }) => itemId === id);
 
         if (foundItemIndex === -1) {
-            return undefined;
+            return null;
         }
 
         const foundItem = collection[foundItemIndex];
@@ -85,10 +85,10 @@ class Model extends CollectionClient {
 
     async findByIdAndDelete(id) {
         const collection = await this.getCollection();
-        const foundItemIndex = collection.findIndex(({ id: itemId }) => itemId === String(id));
+        const foundItemIndex = collection.findIndex(({ id: itemId }) => itemId === id);
 
         if (foundItemIndex === -1) {
-            return undefined;
+            return null;
         }
 
         const deletedItems = collection.splice(foundItemIndex, 1);
