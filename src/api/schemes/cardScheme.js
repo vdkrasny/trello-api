@@ -1,6 +1,6 @@
 const joi = require('@hapi/joi');
 
-const cardScheme = joi
+module.exports = joi
     .object()
     .keys({
         'name': joi
@@ -24,5 +24,3 @@ const cardScheme = joi
             .items(joi.string())
             .required()
     });
-
-module.exports = cardScheme;
