@@ -2,12 +2,11 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const AuthorizationError = require('../errors/AuthorizationError');
-const UserModel = require('../models/UserModel');
 const config = require('../config');
 
 class AuthService {
-    constructor(userModel) {
-        this.userModel = userModel || new UserModel();
+    constructor(container) {
+        this.userModel = container.get('userModel');
     }
 
     async signUp({ login, password } = {}) {
