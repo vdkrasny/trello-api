@@ -1,8 +1,6 @@
-const BoardModel = require('../models/BoardModel');
-
 class BoardService {
-    constructor(boardModel) {
-        this.boardModel = boardModel || new BoardModel();
+    constructor(container) {
+        this.boardModel = container.get('boardModel');
     }
 
     async create({ name, color, description }) {
