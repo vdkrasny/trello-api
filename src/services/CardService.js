@@ -1,8 +1,6 @@
-const CardModel = require('../models/CardModel');
-
 class CardService {
-    constructor(cardModel) {
-        this.cardModel = cardModel || new CardModel();
+    constructor(container) {
+        this.cardModel = container.get('cardModel');
     }
 
     async create({

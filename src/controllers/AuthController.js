@@ -1,11 +1,15 @@
 const config = require('../config');
-const AuthService = require('../services/AuthService');
-
-const authService = new AuthService();
 
 class AuthController {
-    static async signUp(request, response) {
-        const { user, token } = await authService.signUp(request.body);
+    constructor(container) {
+        this.authService = container.get('authService');
+
+        this.signUp = this.signUp.bind(this);
+        this.logIn = this.logIn.bind(this);
+    }
+
+    async signUp(request, response) {
+        const { user, token } = await this.authService.signUp(request.body);
 
         response.setHeader(config.headers.authToken, token);
 
@@ -14,8 +18,8 @@ class AuthController {
             .json({ user });
     }
 
-    static async logIn(request, response) {
-        const { user, token } = await authService.logIn(request.body);
+    async logIn(request, response) {
+        const { user, token } = await this.authService.logIn(request.body);
 
         response.setHeader(config.headers.authToken, token);
 

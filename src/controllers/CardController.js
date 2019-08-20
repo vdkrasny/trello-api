@@ -1,21 +1,28 @@
 const NotFoundError = require('../errors/NotFoundError');
-const CardService = require('../services/CardService');
-
-const cardService = new CardService();
 
 class CardController {
-    static async getAll(request, response) {
-        const cards = await cardService.getAll();
+    constructor(container) {
+        this.cardService = container.get('cardService');
+
+        this.getAll = this.getAll.bind(this);
+        this.getById = this.getById.bind(this);
+        this.create = this.create.bind(this);
+        this.updateById = this.updateById.bind(this);
+        this.deleteById = this.deleteById.bind(this);
+    }
+
+    async getAll(request, response) {
+        const cards = await this.cardService.getAll();
 
         return response
             .status(200)
             .json(cards);
     }
 
-    static async getById(request, response) {
+    async getById(request, response) {
         const { params: { cardId } } = request;
 
-        const foundCard = await cardService.getById(cardId);
+        const foundCard = await this.cardService.getById(cardId);
 
         if (!foundCard) {
             throw new NotFoundError('The requested Card was not found');
@@ -26,23 +33,23 @@ class CardController {
             .json(foundCard);
     }
 
-    static async create(request, response) {
+    async create(request, response) {
         const { body } = request;
 
-        const createdCard = await cardService.create(body);
+        const createdCard = await this.cardService.create(body);
 
         return response
             .status(201)
             .json(createdCard);
     }
 
-    static async updateById(request, response) {
+    async updateById(request, response) {
         const {
             body,
             params: { cardId }
         } = request;
 
-        const updatedCard = await cardService.updateById(cardId, body);
+        const updatedCard = await this.cardService.updateById(cardId, body);
 
         if (!updatedCard) {
             throw new NotFoundError('The requested Card was not found');
@@ -53,10 +60,10 @@ class CardController {
             .end();
     }
 
-    static async deleteById(request, response) {
+    async deleteById(request, response) {
         const { params: { cardId } } = request;
 
-        const deletedCard = await cardService.deleteById(cardId);
+        const deletedCard = await this.cardService.deleteById(cardId);
 
         if (!deletedCard) {
             throw new NotFoundError('The requested Card was not found');
