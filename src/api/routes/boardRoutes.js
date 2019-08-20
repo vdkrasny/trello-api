@@ -1,39 +1,47 @@
 const express = require('express');
+const { Container } = require('typedi');
 
 const middlewares = require('../middlewares');
 const schemes = require('../schemes');
+const BoardModel = require('../../models/BoardModel');
+const BoardService = require('../../services/BoardService');
 const BoardController = require('../../controllers/BoardController');
 
+Container.set('boardModel', new BoardModel());
+Container.set('boardService', new BoardService(Container));
+Container.set('boardController', new BoardController(Container));
+
+const boardController = Container.get('boardController');
 const router = express.Router();
 
 router.get(
     '/',
-    middlewares.requestCover(BoardController.getAll)
+    middlewares.requestCover(boardController.getAll)
 );
 
 router.get(
     '/:boardId',
-    middlewares.requestCover(BoardController.getById)
+    middlewares.requestCover(boardController.getById)
 );
 
 router.post(
     '/',
     middlewares.verifyAccess,
     middlewares.bodyValidator(schemes.boardScheme),
-    middlewares.requestCover(BoardController.create)
+    middlewares.requestCover(boardController.create)
 );
 
 router.put(
     '/:boardId',
     middlewares.verifyAccess,
     middlewares.bodyValidator(schemes.boardScheme),
-    middlewares.requestCover(BoardController.updateById)
+    middlewares.requestCover(boardController.updateById)
 );
 
 router.delete(
     '/:boardId',
     middlewares.verifyAccess,
-    middlewares.requestCover(BoardController.deleteById)
+    middlewares.requestCover(boardController.deleteById)
 );
 
 module.exports = router;
