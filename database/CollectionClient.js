@@ -14,17 +14,17 @@ class CollectionClient {
                 await this.write([]);
             }
 
-            fs.readFile(this.filePath, (err, json) => {
-                if (err) {
-                    return reject(err);
+            fs.readFile(this.filePath, (error, json) => {
+                if (error) {
+                    return reject(error);
                 }
 
                 try {
                     const parsedJson = JSON.parse(json);
 
                     return resolve(parsedJson);
-                } catch (error) {
-                    return reject(new Error('Seems like the collection has been damaged. A data was not read.'));
+                } catch (err) {
+                    throw new Error('Seems like the collection has been damaged. A data was not read.');
                 }
             });
         });
@@ -35,9 +35,9 @@ class CollectionClient {
             try {
                 const convertedJson = JSON.stringify(json);
 
-                fs.writeFile(this.filePath, convertedJson, (err) => {
-                    if (err) {
-                        return reject(err);
+                fs.writeFile(this.filePath, convertedJson, (error) => {
+                    if (error) {
+                        return reject(error);
                     }
 
                     return resolve();
@@ -50,16 +50,16 @@ class CollectionClient {
 
     _isFileExist() {
         return new Promise((resolve, reject) => {
-            fs.stat(this.filePath, (err) => {
-                if (err === null) {
+            fs.stat(this.filePath, (error) => {
+                if (error === null) {
                     return resolve(true);
                 }
 
-                if (err.code === 'ENOENT') {
+                if (error.code === 'ENOENT') {
                     return resolve(false);
                 }
 
-                return reject(err);
+                return reject(error);
             });
         });
     }
