@@ -27,14 +27,14 @@ router.get(
 router.post(
     '/',
     middlewares.checkAuthorization,
-    middlewares.bodyValidator(schemes.boardScheme),
+    middlewares.checkBodyValidation(schemes.boardScheme),
     middlewares.requestCover(boardController.create)
 );
 
 router.put(
     '/:boardId',
     middlewares.checkAuthorization,
-    middlewares.bodyValidator(schemes.boardScheme),
+    middlewares.checkBodyValidation(schemes.boardScheme),
     middlewares.requestCover(boardController.updateById)
 );
 

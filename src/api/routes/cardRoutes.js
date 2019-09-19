@@ -26,13 +26,13 @@ router.get(
 
 router.post(
     '/',
-    middlewares.bodyValidator(schemes.cardScheme),
+    middlewares.checkBodyValidation(schemes.cardScheme),
     middlewares.requestCover(cardController.create)
 );
 
 router.put(
     '/:cardId',
-    middlewares.bodyValidator(schemes.cardScheme),
+    middlewares.checkBodyValidation(schemes.cardScheme),
     middlewares.requestCover(cardController.updateById)
 );
 
