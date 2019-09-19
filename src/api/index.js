@@ -10,7 +10,7 @@ const router = express.Router();
 router.use(middlewares.requestDetails);
 router.use(middlewares.activityLogger);
 router.use('/auth', authRoutes);
-router.use(middlewares.verifyAuth);
+router.use(middlewares.checkAuthentication);
 router.use('/boards', boardRoutes);
 router.use('/cards', cardsRoutes);
 router.use(middlewares.notFound);

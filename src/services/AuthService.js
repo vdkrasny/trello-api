@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const AuthorizationError = require('../errors/AuthorizationError');
+const AuthenticationError = require('../errors/AuthenticationError');
 const config = require('../config');
 
 class AuthService {
@@ -13,7 +13,7 @@ class AuthService {
         const foundUser = await this.userModel.findOne({ login });
 
         if (foundUser) {
-            throw new AuthorizationError('This login is already registered.');
+            throw new AuthenticationError('This login is already registered.');
         }
 
         const hashedPassword = await bcrypt.hash(password, config.hashSalt);
@@ -38,13 +38,13 @@ class AuthService {
         const foundUser = await this.userModel.findOne({ login });
 
         if (!foundUser) {
-            throw new AuthorizationError('Username or password is incorrect.');
+            throw new AuthenticationError('Username or password is incorrect.');
         }
 
         const isPasswordCorrect = await bcrypt.compare(password, foundUser.password);
 
         if (!isPasswordCorrect) {
-            throw new AuthorizationError('Username or password is incorrect.');
+            throw new AuthenticationError('Username or password is incorrect.');
         }
 
         const token = this._generateToken(foundUser);
