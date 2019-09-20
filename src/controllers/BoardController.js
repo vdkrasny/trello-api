@@ -1,5 +1,3 @@
-const NotFoundError = require('../errors/NotFoundError');
-
 class BoardController {
     constructor(container) {
         this.boardService = container.get('boardService');
@@ -24,10 +22,6 @@ class BoardController {
 
         const foundBoard = await this.boardService.getById(boardId);
 
-        if (!foundBoard) {
-            throw new NotFoundError('The requested Board was not found');
-        }
-
         return response
             .status(200)
             .json(foundBoard);
@@ -49,11 +43,7 @@ class BoardController {
             params: { boardId }
         } = request;
 
-        const updatedBoard = await this.boardService.updateById(boardId, body);
-
-        if (!updatedBoard) {
-            throw new NotFoundError('The requested Board was not found');
-        }
+        await this.boardService.updateById(boardId, body);
 
         return response
             .status(204)
@@ -63,11 +53,7 @@ class BoardController {
     async deleteById(request, response) {
         const { params: { boardId } } = request;
 
-        const deletedBoard = await this.boardService.deleteById(boardId);
-
-        if (!deletedBoard) {
-            throw new NotFoundError('The requested Board was not found');
-        }
+        await this.boardService.deleteById(boardId);
 
         return response
             .status(204)

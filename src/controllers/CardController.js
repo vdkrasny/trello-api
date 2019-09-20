@@ -1,5 +1,3 @@
-const NotFoundError = require('../errors/NotFoundError');
-
 class CardController {
     constructor(container) {
         this.cardService = container.get('cardService');
@@ -24,10 +22,6 @@ class CardController {
 
         const foundCard = await this.cardService.getById(cardId);
 
-        if (!foundCard) {
-            throw new NotFoundError('The requested Card was not found');
-        }
-
         return response
             .status(200)
             .json(foundCard);
@@ -49,11 +43,7 @@ class CardController {
             params: { cardId }
         } = request;
 
-        const updatedCard = await this.cardService.updateById(cardId, body);
-
-        if (!updatedCard) {
-            throw new NotFoundError('The requested Card was not found');
-        }
+        await this.cardService.updateById(cardId, body);
 
         return response
             .status(204)
@@ -63,11 +53,7 @@ class CardController {
     async deleteById(request, response) {
         const { params: { cardId } } = request;
 
-        const deletedCard = await this.cardService.deleteById(cardId);
-
-        if (!deletedCard) {
-            throw new NotFoundError('The requested Card was not found');
-        }
+        await this.cardService.deleteById(cardId);
 
         return response
             .status(204)
