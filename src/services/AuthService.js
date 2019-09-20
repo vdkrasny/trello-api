@@ -32,7 +32,7 @@ class AuthService {
 
     async logIn({ login, password } = {}) {
         const foundUser = await this.userModel.findOne({ login }) || {};
-        const isPasswordCorrect = await bcrypt.compare(password, foundUser.password);
+        const isPasswordCorrect = await bcrypt.compare(password, foundUser.password || '');
 
         if (!isPasswordCorrect) {
             throw new AuthenticationError('Username or password is incorrect.');
