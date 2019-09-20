@@ -16,8 +16,7 @@ class AuthService {
             throw new AuthenticationError('This login is already registered.');
         }
 
-        const hashedPassword = await bcrypt.hash(password, config.hashSalt);
-
+        const hashedPassword = await bcrypt.hash(password, 12);
         const newUser = await this.userModel.create({
             login,
             password: hashedPassword,
@@ -26,21 +25,13 @@ class AuthService {
         const token = this._generateToken(newUser);
 
         return {
-            user: {
-                login: newUser.login,
-                role: newUser.role
-            },
+            userId: newUser.id,
             token
         };
     }
 
     async logIn({ login, password } = {}) {
-        const foundUser = await this.userModel.findOne({ login });
-
-        if (!foundUser) {
-            throw new AuthenticationError('Username or password is incorrect.');
-        }
-
+        const foundUser = await this.userModel.findOne({ login }) || {};
         const isPasswordCorrect = await bcrypt.compare(password, foundUser.password);
 
         if (!isPasswordCorrect) {
@@ -50,10 +41,7 @@ class AuthService {
         const token = this._generateToken(foundUser);
 
         return {
-            user: {
-                login: foundUser.login,
-                role: foundUser.role
-            },
+            userId: foundUser.id,
             token
         };
     }

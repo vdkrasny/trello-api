@@ -4,19 +4,16 @@ const AuthenticationError = require('../../errors/AuthenticationError');
 const config = require('../../config');
 
 module.exports = (request, response, next) => {
-    const token = request.headers[config.headers.authToken];
-
-    if (!token) {
-        return next(new AuthenticationError('You are not authenticated'));
-    }
+    const authHeader = request.get('Authorization') || '';
+    const [, token = ''] = authHeader.split(' ');
 
     try {
-        const verifiedUser = jwt.verify(token, config.jwt.secret);
+        const parsedUser = jwt.verify(token, config.jwt.secret);
 
-        request.user = verifiedUser;
+        request.user = parsedUser;
 
         return next();
     } catch (error) {
-        return next(new AuthenticationError('Invalid token'));
+        return next(new AuthenticationError('You are not authenticated'));
     }
 };
