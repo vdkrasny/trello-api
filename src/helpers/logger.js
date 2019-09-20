@@ -4,20 +4,20 @@ const config = require('../config');
 
 const transportsConfig = [];
 
-if (process.env.NODE_ENV === 'production') {
-    transportsConfig.push(
-        new winston.transports.File({
-            filename: 'process.log',
-            format: winston.format.json()
-        })
-    );
-} else {
+if (config.nodeEnv === config.nodeEnvTypes.development) {
     transportsConfig.push(
         new winston.transports.Console({
             format: winston.format.combine(
                 winston.format.cli(),
                 winston.format.splat(),
             )
+        })
+    );
+} else {
+    transportsConfig.push(
+        new winston.transports.File({
+            filename: 'process.log',
+            format: winston.format.json()
         })
     );
 }
