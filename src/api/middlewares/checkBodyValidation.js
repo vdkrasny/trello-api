@@ -1,9 +1,7 @@
-const joi = require('@hapi/joi');
-
 const ValidationError = require('../../errors/ValidationError');
 
-module.exports = schema => (request, response, next) => {
-    const validator = joi.validate(request.body, schema);
+module.exports = validationSchema => (request, response, next) => {
+    const validator = validationSchema.validate(request.body);
 
     if (!validator.error) {
         return next();
