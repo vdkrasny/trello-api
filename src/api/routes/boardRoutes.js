@@ -26,21 +26,21 @@ router.get(
 
 router.post(
     '/',
-    middlewares.verifyAccess,
-    middlewares.bodyValidator(schemes.boardScheme),
+    middlewares.checkAuthorization,
+    middlewares.checkBodyValidation(schemes.boardScheme),
     middlewares.requestCover(boardController.create)
 );
 
 router.put(
     '/:boardId',
-    middlewares.verifyAccess,
-    middlewares.bodyValidator(schemes.boardScheme),
+    middlewares.checkAuthorization,
+    middlewares.checkBodyValidation(schemes.boardScheme),
     middlewares.requestCover(boardController.updateById)
 );
 
 router.delete(
     '/:boardId',
-    middlewares.verifyAccess,
+    middlewares.checkAuthorization,
     middlewares.requestCover(boardController.deleteById)
 );
 

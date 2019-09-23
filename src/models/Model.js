@@ -15,8 +15,7 @@ class Model extends CollectionClient {
         }
 
         const collection = await this.getCollection();
-        const firstConditionsKey = conditionsKeys[0];
-        const restConditionsKeys = conditionsKeys.slice(1);
+        const [firstConditionsKey, ...restConditionsKeys] = conditionsKeys;
         let foundItems;
 
         foundItems = collection.filter(collectionItem => collectionItem[firstConditionsKey] === conditions[firstConditionsKey]);
@@ -29,8 +28,8 @@ class Model extends CollectionClient {
             return foundItems;
         }
 
-        restConditionsKeys.forEach((key) => {
-            foundItems = foundItems.filter(foundItem => foundItem[key] === conditions[key]);
+        restConditionsKeys.forEach((conditionsKey) => {
+            foundItems = foundItems.filter(foundItem => foundItem[conditionsKey] === conditions[conditionsKey]);
         });
 
         if (!foundItems.length) {
@@ -47,7 +46,7 @@ class Model extends CollectionClient {
             return null;
         }
 
-        const firstFoundItem = foundItems[0];
+        const [firstFoundItem] = foundItems;
 
         return firstFoundItem;
     }
@@ -91,10 +90,10 @@ class Model extends CollectionClient {
             return null;
         }
 
-        const deletedItems = collection.splice(foundItemIndex, 1);
+        const [deletedItem] = collection.splice(foundItemIndex, 1);
         await this.saveCollection(collection);
 
-        return deletedItems[0];
+        return deletedItem;
     }
 
     async create(body = {}) {

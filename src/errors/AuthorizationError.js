@@ -2,7 +2,7 @@ const StatusError = require('./StatusError');
 
 class AuthorizationError extends StatusError {
     constructor(message) {
-        super(message, 401);
+        super(message, 403);
         this.name = 'AuthorizationError';
     }
 }

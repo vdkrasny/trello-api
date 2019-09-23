@@ -16,13 +16,13 @@ const router = express.Router();
 
 router.post(
     '/signup',
-    middlewares.bodyValidator(schemes.signupScheme),
+    middlewares.checkBodyValidation(schemes.signupScheme),
     middlewares.requestCover(authController.signUp)
 );
 
 router.post(
     '/login',
-    middlewares.bodyValidator(schemes.loginScheme),
+    middlewares.checkBodyValidation(schemes.loginScheme),
     middlewares.requestCover(authController.logIn)
 );
 

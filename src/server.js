@@ -1,20 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
+const cors = require('cors');
 
 const config = require('./config');
 const api = require('./api');
 const logger = require('./helpers/logger');
 
 const startServer = () => {
-    const app = express();
+    const server = express();
 
-    app.use(helmet());
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: true }));
-    app.use(config.api.prefix, api);
+    server.use(helmet());
+    server.use(cors({ optionsSuccessStatus: 200 }));
+    server.use(bodyParser.json());
+    server.use(bodyParser.urlencoded({ extended: true }));
+    server.use(config.api.prefix, api);
 
-    app.listen(config.port, (error) => {
+    server.listen(config.port, (error) => {
         if (error) {
             logger.log('error', error);
             process.exit(1);

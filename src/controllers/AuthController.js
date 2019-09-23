@@ -1,5 +1,3 @@
-const config = require('../config');
-
 class AuthController {
     constructor(container) {
         this.authService = container.get('authService');
@@ -9,23 +7,19 @@ class AuthController {
     }
 
     async signUp(request, response) {
-        const { user, token } = await this.authService.signUp(request.body);
-
-        response.setHeader(config.headers.authToken, token);
+        const { userId, token } = await this.authService.signUp(request.body);
 
         return response
             .status(201)
-            .json({ user });
+            .json({ userId, token });
     }
 
     async logIn(request, response) {
-        const { user, token } = await this.authService.logIn(request.body);
-
-        response.setHeader(config.headers.authToken, token);
+        const { userId, token } = await this.authService.logIn(request.body);
 
         return response
             .status(200)
-            .json({ user });
+            .json({ userId, token });
     }
 }
 
