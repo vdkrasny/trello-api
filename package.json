@@ -4,9 +4,10 @@
   "description": "REST API which allows you to do simple CRUD operations with role permissions.",
   "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon src/server.js",
-    "prod": "cross-env NODE_ENV=production node src/server.js"
+    "prod": "cross-env NODE_ENV=production node src/server.js",
+    "lint:js": "eslint --ext .js src",
+    "lint:js:fix": "eslint --ext .js src --fix"
   },
   "repository": {
     "type": "git",
@@ -19,11 +20,15 @@
   },
   "homepage": "https://github.com/vdkrasny/trello-api#readme",
   "devDependencies": {
+    "babel-eslint": "^10.0.3",
     "cross-env": "^6.0.0",
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.3.0",
     "eslint-plugin-import": "^2.18.2",
-    "nodemon": "^1.19.2"
+    "eslint-plugin-prettier": "^3.1.1",
+    "nodemon": "^1.19.2",
+    "prettier": "^1.18.2"
   },
   "dependencies": {
     "@hapi/joi": "^16.1.2",

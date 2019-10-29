@@ -1,6 +1,6 @@
 {
   "root": true,
-  "extends": ["airbnb-base"],
+  "extends": ["airbnb-base", "plugin:prettier/recommended"],
   "rules": {
     "object-shorthand": ["error", "properties"],
     "class-methods-use-this": "off",
