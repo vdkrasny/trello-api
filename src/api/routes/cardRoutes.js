@@ -14,21 +14,11 @@ Container.set('cardController', new CardController(Container));
 const cardController = Container.get('cardController');
 const router = express.Router();
 
-router.get(
-    '/',
-    middlewares.requestCover(cardController.getAll)
-);
+router.get('/', middlewares.requestCover(cardController.getAll));
 
-router.get(
-    '/:cardId',
-    middlewares.requestCover(cardController.getById)
-);
+router.get('/:cardId', middlewares.requestCover(cardController.getById));
 
-router.post(
-    '/',
-    middlewares.checkBodyValidation(schemes.cardScheme),
-    middlewares.requestCover(cardController.create)
-);
+router.post('/', middlewares.checkBodyValidation(schemes.cardScheme), middlewares.requestCover(cardController.create));
 
 router.put(
     '/:cardId',
@@ -36,9 +26,6 @@ router.put(
     middlewares.requestCover(cardController.updateById)
 );
 
-router.delete(
-    '/:cardId',
-    middlewares.requestCover(cardController.deleteById)
-);
+router.delete('/:cardId', middlewares.requestCover(cardController.deleteById));
 
 module.exports = router;

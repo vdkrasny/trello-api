@@ -14,15 +14,9 @@ Container.set('boardController', new BoardController(Container));
 const boardController = Container.get('boardController');
 const router = express.Router();
 
-router.get(
-    '/',
-    middlewares.requestCover(boardController.getAll)
-);
+router.get('/', middlewares.requestCover(boardController.getAll));
 
-router.get(
-    '/:boardId',
-    middlewares.requestCover(boardController.getById)
-);
+router.get('/:boardId', middlewares.requestCover(boardController.getById));
 
 router.post(
     '/',
@@ -38,10 +32,6 @@ router.put(
     middlewares.requestCover(boardController.updateById)
 );
 
-router.delete(
-    '/:boardId',
-    middlewares.checkAuthorization,
-    middlewares.requestCover(boardController.deleteById)
-);
+router.delete('/:boardId', middlewares.checkAuthorization, middlewares.requestCover(boardController.deleteById));
 
 module.exports = router;

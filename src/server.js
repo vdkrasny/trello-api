@@ -16,7 +16,7 @@ const startServer = () => {
     server.use(bodyParser.urlencoded({ extended: true }));
     server.use(config.api.prefix, api);
 
-    server.listen(config.port, (error) => {
+    server.listen(config.port, error => {
         if (error) {
             logger.log('error', error);
             process.exit(1);

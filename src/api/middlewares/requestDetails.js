@@ -1,18 +1,12 @@
 module.exports = (request, response, next) => {
-    const {
-        body,
-        originalUrl: endpoint,
-        method,
-        ip,
-        user = null
-    } = request;
+    const { body, originalUrl: endpoint, method, ip, user = null } = request;
 
     const requestDetails = {
         body,
         endpoint,
         method,
         ip,
-        user
+        user,
     };
 
     request.requestDetails = requestDetails;

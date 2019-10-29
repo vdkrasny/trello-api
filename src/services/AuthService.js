@@ -20,18 +20,18 @@ class AuthService {
         const newUser = await this.userModel.create({
             login,
             password: hashedPassword,
-            role: 'user'
+            role: 'user',
         });
         const token = this._generateToken(newUser);
 
         return {
             userId: newUser.id,
-            token
+            token,
         };
     }
 
     async logIn({ login, password } = {}) {
-        const foundUser = await this.userModel.findOne({ login }) || {};
+        const foundUser = (await this.userModel.findOne({ login })) || {};
         const isPasswordCorrect = await bcrypt.compare(password, foundUser.password || '');
 
         if (!isPasswordCorrect) {
@@ -42,16 +42,12 @@ class AuthService {
 
         return {
             userId: foundUser.id,
-            token
+            token,
         };
     }
 
     _generateToken({ id, login, role } = {}) {
-        return jwt.sign(
-            { id, login, role },
-            config.jwt.secret,
-            { expiresIn: config.jwt.expiresIn }
-        );
+        return jwt.sign({ id, login, role }, config.jwt.secret, { expiresIn: config.jwt.expiresIn });
     }
 }
 

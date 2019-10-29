@@ -9,7 +9,7 @@ class BoardService {
         const newBoard = {
             name,
             color,
-            description
+            description,
         };
         const createdBoard = await this.boardModel.create(newBoard);
 
@@ -33,14 +33,11 @@ class BoardService {
     }
 
     async updateById(boardId, { name, color, description }) {
-        const updatedBoard = await this.boardModel.findByIdAndUpdate(
-            boardId,
-            {
-                name,
-                color,
-                description
-            }
-        );
+        const updatedBoard = await this.boardModel.findByIdAndUpdate(boardId, {
+            name,
+            color,
+            description,
+        });
 
         if (!updatedBoard) {
             throw new NotFoundError('The requested Board was not found');

@@ -5,16 +5,14 @@ class CardService {
         this.cardModel = container.get('cardModel');
     }
 
-    async create({
-        name, description, estimate, status, dueDate, labels
-    }) {
+    async create({ name, description, estimate, status, dueDate, labels }) {
         const newCard = {
             name,
             description,
             estimate,
             status,
             dueDate,
-            labels
+            labels,
         };
         const createdCard = await this.cardModel.create(newCard);
 
@@ -37,20 +35,15 @@ class CardService {
         return foundCard;
     }
 
-    async updateById(cardId, {
-        name, description, estimate, status, dueDate, labels
-    }) {
-        const updatedCard = await this.cardModel.findByIdAndUpdate(
-            cardId,
-            {
-                name,
-                description,
-                estimate,
-                status,
-                dueDate,
-                labels
-            }
-        );
+    async updateById(cardId, { name, description, estimate, status, dueDate, labels }) {
+        const updatedCard = await this.cardModel.findByIdAndUpdate(cardId, {
+            name,
+            description,
+            estimate,
+            status,
+            dueDate,
+            labels,
+        });
 
         if (!updatedCard) {
             throw new NotFoundError('The requested Card was not found');

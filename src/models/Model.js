@@ -18,7 +18,9 @@ class Model extends CollectionClient {
         const [firstConditionsKey, ...restConditionsKeys] = conditionsKeys;
         let foundItems;
 
-        foundItems = collection.filter(collectionItem => collectionItem[firstConditionsKey] === conditions[firstConditionsKey]);
+        foundItems = collection.filter(
+            collectionItem => collectionItem[firstConditionsKey] === conditions[firstConditionsKey]
+        );
 
         if (!foundItems.length) {
             return null;
@@ -28,7 +30,7 @@ class Model extends CollectionClient {
             return foundItems;
         }
 
-        restConditionsKeys.forEach((conditionsKey) => {
+        restConditionsKeys.forEach(conditionsKey => {
             foundItems = foundItems.filter(foundItem => foundItem[conditionsKey] === conditions[conditionsKey]);
         });
 
@@ -73,7 +75,7 @@ class Model extends CollectionClient {
         const foundItem = collection[foundItemIndex];
         const updatedItem = {
             ...foundItem,
-            ...body
+            ...body,
         };
 
         collection[foundItemIndex] = updatedItem;
@@ -104,7 +106,7 @@ class Model extends CollectionClient {
         const createdItem = {
             ...body,
             createdAt: new Date(),
-            id: randomId
+            id: randomId,
         };
 
         collection.push(createdItem);
