@@ -12,19 +12,17 @@ class BoardController {
     async getAll(request, response) {
         const boards = await this.boardService.getAll();
 
-        return response
-            .status(200)
-            .json(boards);
+        return response.status(200).json(boards);
     }
 
     async getById(request, response) {
-        const { params: { boardId } } = request;
+        const {
+            params: { boardId },
+        } = request;
 
         const foundBoard = await this.boardService.getById(boardId);
 
-        return response
-            .status(200)
-            .json(foundBoard);
+        return response.status(200).json(foundBoard);
     }
 
     async create(request, response) {
@@ -32,32 +30,28 @@ class BoardController {
 
         const createdBoard = await this.boardService.create(body);
 
-        return response
-            .status(201)
-            .json(createdBoard);
+        return response.status(201).json(createdBoard);
     }
 
     async updateById(request, response) {
         const {
             body,
-            params: { boardId }
+            params: { boardId },
         } = request;
 
         await this.boardService.updateById(boardId, body);
 
-        return response
-            .status(204)
-            .end();
+        return response.status(204).end();
     }
 
     async deleteById(request, response) {
-        const { params: { boardId } } = request;
+        const {
+            params: { boardId },
+        } = request;
 
         await this.boardService.deleteById(boardId);
 
-        return response
-            .status(204)
-            .end();
+        return response.status(204).end();
     }
 }
 

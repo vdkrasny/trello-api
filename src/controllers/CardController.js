@@ -12,19 +12,17 @@ class CardController {
     async getAll(request, response) {
         const cards = await this.cardService.getAll();
 
-        return response
-            .status(200)
-            .json(cards);
+        return response.status(200).json(cards);
     }
 
     async getById(request, response) {
-        const { params: { cardId } } = request;
+        const {
+            params: { cardId },
+        } = request;
 
         const foundCard = await this.cardService.getById(cardId);
 
-        return response
-            .status(200)
-            .json(foundCard);
+        return response.status(200).json(foundCard);
     }
 
     async create(request, response) {
@@ -32,32 +30,28 @@ class CardController {
 
         const createdCard = await this.cardService.create(body);
 
-        return response
-            .status(201)
-            .json(createdCard);
+        return response.status(201).json(createdCard);
     }
 
     async updateById(request, response) {
         const {
             body,
-            params: { cardId }
+            params: { cardId },
         } = request;
 
         await this.cardService.updateById(cardId, body);
 
-        return response
-            .status(204)
-            .end();
+        return response.status(204).end();
     }
 
     async deleteById(request, response) {
-        const { params: { cardId } } = request;
+        const {
+            params: { cardId },
+        } = request;
 
         await this.cardService.deleteById(cardId);
 
-        return response
-            .status(204)
-            .end();
+        return response.status(204).end();
     }
 }
 

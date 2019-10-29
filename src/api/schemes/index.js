@@ -7,5 +7,5 @@ module.exports = {
     boardScheme,
     cardScheme,
     loginScheme,
-    signupScheme
+    signupScheme,
 };

@@ -17,5 +17,5 @@ module.exports = {
     logErrors,
     notFound,
     requestCover,
-    requestDetails
+    requestDetails,
 };
