@@ -1,19 +1,19 @@
 const fs = require('fs');
 const path = require('path');
 
-class CollectionClient {
+class DBClient {
     constructor(fileName) {
-        this.filePath = path.join(__dirname, `${fileName}.json`);
+        this.filePath = path.join(__dirname, '..', 'database', `${fileName}.json`);
     }
 
-    getCollection() {
-        return new Promise(async (resolve, reject) => {
-            const isFileExist = await this._isFileExist();
+    async getCollection() {
+        const isFileExist = await this._isFileExist();
 
-            if (!isFileExist) {
-                await this.write([]);
-            }
+        if (!isFileExist) {
+            await this.write([]);
+        }
 
+        return new Promise((resolve, reject) => {
             fs.readFile(this.filePath, (error, json) => {
                 if (error) {
                     return reject(error);
@@ -35,7 +35,7 @@ class CollectionClient {
             try {
                 const convertedJson = JSON.stringify(json);
 
-                fs.writeFile(this.filePath, convertedJson, (error) => {
+                fs.writeFile(this.filePath, convertedJson, error => {
                     if (error) {
                         return reject(error);
                     }
@@ -50,7 +50,7 @@ class CollectionClient {
 
     _isFileExist() {
         return new Promise((resolve, reject) => {
-            fs.stat(this.filePath, (error) => {
+            fs.stat(this.filePath, error => {
                 if (error === null) {
                     return resolve(true);
                 }
@@ -65,4 +65,4 @@ class CollectionClient {
     }
 }
 
-module.exports = CollectionClient;
+module.exports = DBClient;

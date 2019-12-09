@@ -1,6 +1,6 @@
-const CollectionClient = require('../../database/CollectionClient');
+const DBClient = require('../DBClient');
 
-class Model extends CollectionClient {
+class Model extends DBClient {
     async getAll() {
         const collection = await this.getCollection();
 
