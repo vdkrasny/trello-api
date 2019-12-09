@@ -10,21 +10,27 @@ class DBClient {
         const isFileExist = await this._isFileExist();
 
         if (!isFileExist) {
-            await this.write([]);
+            await this.saveCollection([]);
         }
 
         return new Promise((resolve, reject) => {
-            fs.readFile(this.filePath, (error, json) => {
-                if (error) {
-                    return reject(error);
+            fs.readFile(this.filePath, (readingFileError, json) => {
+                if (readingFileError) {
+                    return reject(readingFileError);
                 }
 
                 try {
                     const parsedJson = JSON.parse(json);
 
+                    if (!Array.isArray(parsedJson)) {
+                        throw new Error('The format of the stored data is not an array.');
+                    }
+
                     return resolve(parsedJson);
-                } catch (err) {
-                    throw new Error('Seems like the collection has been damaged. A data was not read.');
+                } catch (error) {
+                    return reject(
+                        new Error(`The requested collection ${this.filePath} has not been read. ${error.message}`)
+                    );
                 }
             });
         });
@@ -35,15 +41,17 @@ class DBClient {
             try {
                 const convertedJson = JSON.stringify(json);
 
-                fs.writeFile(this.filePath, convertedJson, error => {
-                    if (error) {
-                        return reject(error);
+                return fs.writeFile(this.filePath, convertedJson, writingFileError => {
+                    if (writingFileError) {
+                        return reject(writingFileError);
                     }
 
                     return resolve();
                 });
-            } catch (err) {
-                throw new Error('Seems like the collection has been damaged. A data was not saved.');
+            } catch (error) {
+                return reject(
+                    new Error(`The requested collection ${this.filePath} has not been saved. ${error.message}`)
+                );
             }
         });
     }
