@@ -1,6 +1,6 @@
-const AuthorizationError = require('../../errors/AuthorizationError');
+import AuthorizationError from '../../errors/AuthorizationError';
 
-module.exports = (request, response, next) => {
+export default (request, response, next) => {
     const { user } = request;
 
     if (user.role !== 'admin') {

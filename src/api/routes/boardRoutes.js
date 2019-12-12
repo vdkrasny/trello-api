@@ -1,11 +1,11 @@
-const express = require('express');
-const { Container } = require('typedi');
+import express from 'express';
+import { Container } from 'typedi';
 
-const middlewares = require('../middlewares');
-const schemes = require('../schemes');
-const BoardModel = require('../../models/BoardModel');
-const BoardService = require('../../services/BoardService');
-const BoardController = require('../../controllers/BoardController');
+import middlewares from '../middlewares';
+import schemes from '../schemes';
+import BoardModel from '../../models/BoardModel';
+import BoardService from '../../services/BoardService';
+import BoardController from '../../controllers/BoardController';
 
 Container.set('boardModel', new BoardModel());
 Container.set('boardService', new BoardService(Container));
@@ -34,4 +34,4 @@ router.put(
 
 router.delete('/:boardId', middlewares.checkAuthorization, middlewares.requestCover(boardController.deleteById));
 
-module.exports = router;
+export default router;

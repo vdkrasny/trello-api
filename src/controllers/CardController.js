@@ -55,4 +55,4 @@ class CardController {
     }
 }
 
-module.exports = CardController;
+export default CardController;

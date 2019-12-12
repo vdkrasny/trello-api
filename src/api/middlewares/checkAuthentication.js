@@ -1,9 +1,9 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
-const AuthenticationError = require('../../errors/AuthenticationError');
-const config = require('../../config');
+import AuthenticationError from '../../errors/AuthenticationError';
+import config from '../../config';
 
-module.exports = (request, response, next) => {
+export default (request, response, next) => {
     const authHeader = request.get('Authorization') || '';
     const [, token = ''] = authHeader.split(' ');
 

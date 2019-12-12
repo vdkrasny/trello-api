@@ -1,4 +1,4 @@
-const StatusError = require('./StatusError');
+import StatusError from './StatusError';
 
 class NotFoundError extends StatusError {
     constructor(message) {
@@ -7,4 +7,4 @@ class NotFoundError extends StatusError {
     }
 }
 
-module.exports = NotFoundError;
+export default NotFoundError;

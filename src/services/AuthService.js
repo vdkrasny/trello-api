@@ -1,8 +1,8 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
-const AuthenticationError = require('../errors/AuthenticationError');
-const config = require('../config');
+import AuthenticationError from '../errors/AuthenticationError';
+import config from '../config';
 
 class AuthService {
     constructor(container) {
@@ -51,4 +51,4 @@ class AuthService {
     }
 }
 
-module.exports = AuthService;
+export default AuthService;

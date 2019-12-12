@@ -1,11 +1,11 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const helmet = require('helmet');
-const cors = require('cors');
+import express from 'express';
+import bodyParser from 'body-parser';
+import helmet from 'helmet';
+import cors from 'cors';
 
-const config = require('./config');
-const api = require('./api');
-const logger = require('./helpers/logger');
+import config from './config';
+import api from './api';
+import logger from './helpers/logger';
 
 const startServer = () => {
     const server = express();

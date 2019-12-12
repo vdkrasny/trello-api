@@ -1,4 +1,4 @@
-const NotFoundError = require('../errors/NotFoundError');
+import NotFoundError from '../errors/NotFoundError';
 
 class CardService {
     constructor(container) {
@@ -63,4 +63,4 @@ class CardService {
     }
 }
 
-module.exports = CardService;
+export default CardService;

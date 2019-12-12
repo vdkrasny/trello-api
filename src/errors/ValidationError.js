@@ -1,4 +1,4 @@
-const StatusError = require('./StatusError');
+import StatusError from './StatusError';
 
 class ValidationError extends StatusError {
     constructor(message) {
@@ -7,4 +7,4 @@ class ValidationError extends StatusError {
     }
 }
 
-module.exports = ValidationError;
+export default ValidationError;

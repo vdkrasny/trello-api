@@ -1,4 +1,4 @@
-const StatusError = require('./StatusError');
+import StatusError from './StatusError';
 
 class AuthorizationError extends StatusError {
     constructor(message) {
@@ -7,4 +7,4 @@ class AuthorizationError extends StatusError {
     }
 }
 
-module.exports = AuthorizationError;
+export default AuthorizationError;

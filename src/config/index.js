@@ -1,4 +1,4 @@
-module.exports = Object.freeze({
+export default Object.freeze({
     nodeEnv: process.env.NODE_ENV || 'development',
     nodeEnvTypes: {
         development: 'development',

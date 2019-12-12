@@ -1,6 +1,6 @@
-const ValidationError = require('../../errors/ValidationError');
+import ValidationError from '../../errors/ValidationError';
 
-module.exports = validationSchema => (request, response, next) => {
+export default validationSchema => (request, response, next) => {
     const validator = validationSchema.validate(request.body);
 
     if (!validator.error) {

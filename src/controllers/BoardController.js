@@ -55,4 +55,4 @@ class BoardController {
     }
 }
 
-module.exports = BoardController;
+export default BoardController;

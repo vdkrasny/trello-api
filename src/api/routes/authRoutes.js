@@ -1,11 +1,11 @@
-const express = require('express');
-const { Container } = require('typedi');
+import express from 'express';
+import { Container } from 'typedi';
 
-const middlewares = require('../middlewares');
-const schemes = require('../schemes');
-const UserModel = require('../../models/UserModel');
-const AuthService = require('../../services/AuthService');
-const AuthController = require('../../controllers/AuthController');
+import middlewares from '../middlewares';
+import schemes from '../schemes';
+import UserModel from '../../models/UserModel';
+import AuthService from '../../services/AuthService';
+import AuthController from '../../controllers/AuthController';
 
 Container.set('userModel', new UserModel());
 Container.set('authService', new AuthService(Container));
@@ -26,4 +26,4 @@ router.post(
     middlewares.requestCover(authController.logIn)
 );
 
-module.exports = router;
+export default router;

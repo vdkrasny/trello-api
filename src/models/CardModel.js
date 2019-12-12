@@ -1,4 +1,4 @@
-const Model = require('./Model');
+import Model from './Model';
 
 class CardModel extends Model {
     constructor() {
@@ -6,4 +6,4 @@ class CardModel extends Model {
     }
 }
 
-module.exports = CardModel;
+export default CardModel;

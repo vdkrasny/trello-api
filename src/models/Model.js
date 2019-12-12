@@ -1,4 +1,4 @@
-const DBClient = require('../DBClient');
+import DBClient from '../DBClient';
 
 class Model extends DBClient {
     async getAll() {
@@ -116,4 +116,4 @@ class Model extends DBClient {
     }
 }
 
-module.exports = Model;
+export default Model;

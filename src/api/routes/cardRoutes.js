@@ -1,11 +1,11 @@
-const express = require('express');
-const { Container } = require('typedi');
+import express from 'express';
+import { Container } from 'typedi';
 
-const middlewares = require('../middlewares');
-const schemes = require('../schemes');
-const CardModel = require('../../models/CardModel');
-const CardService = require('../../services/CardService');
-const CardController = require('../../controllers/CardController');
+import middlewares from '../middlewares';
+import schemes from '../schemes';
+import CardModel from '../../models/CardModel';
+import CardService from '../../services/CardService';
+import CardController from '../../controllers/CardController';
 
 Container.set('cardModel', new CardModel());
 Container.set('cardService', new CardService(Container));
@@ -28,4 +28,4 @@ router.put(
 
 router.delete('/:cardId', middlewares.requestCover(cardController.deleteById));
 
-module.exports = router;
+export default router;

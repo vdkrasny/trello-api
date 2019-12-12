@@ -1,6 +1,6 @@
-const StatusError = require('../../errors/StatusError');
+import StatusError from '../../errors/StatusError';
 
-module.exports = (error, request, response, next) => {
+export default (error, request, response, next) => {
     if (error instanceof StatusError) {
         return response.status(error.status || 500).json({
             error: { message: error.message },

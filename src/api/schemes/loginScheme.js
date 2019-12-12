@@ -1,6 +1,6 @@
-const joi = require('@hapi/joi');
+import joi from '@hapi/joi';
 
-module.exports = joi.object().keys({
+export default joi.object().keys({
     login: joi
         .string()
         .min(5)

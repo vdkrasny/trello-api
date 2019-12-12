@@ -1,9 +1,9 @@
-const express = require('express');
+import express from 'express';
 
-const authRoutes = require('./routes/authRoutes');
-const boardRoutes = require('./routes/boardRoutes');
-const cardsRoutes = require('./routes/cardRoutes');
-const middlewares = require('./middlewares');
+import authRoutes from './routes/authRoutes';
+import boardRoutes from './routes/boardRoutes';
+import cardsRoutes from './routes/cardRoutes';
+import middlewares from './middlewares';
 
 const router = express.Router();
 
@@ -17,4 +17,4 @@ router.use(middlewares.notFound);
 router.use(middlewares.logErrors);
 router.use(middlewares.errorHandler);
 
-module.exports = router;
+export default router;

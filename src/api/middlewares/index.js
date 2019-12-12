@@ -1,14 +1,14 @@
-const checkAuthentication = require('./checkAuthentication');
-const checkAuthorization = require('./checkAuthorization');
-const checkBodyValidation = require('./checkBodyValidation');
-const errorHandler = require('./errorHandler');
-const logActivity = require('./logActivity');
-const logErrors = require('./logErrors');
-const notFound = require('./notFound');
-const requestCover = require('./requestCover');
-const requestDetails = require('./requestDetails');
+import checkAuthentication from './checkAuthentication';
+import checkAuthorization from './checkAuthorization';
+import checkBodyValidation from './checkBodyValidation';
+import errorHandler from './errorHandler';
+import logActivity from './logActivity';
+import logErrors from './logErrors';
+import notFound from './notFound';
+import requestCover from './requestCover';
+import requestDetails from './requestDetails';
 
-module.exports = {
+export default {
     checkAuthentication,
     checkAuthorization,
     checkBodyValidation,

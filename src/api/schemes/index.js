@@ -1,9 +1,9 @@
-const boardScheme = require('./boardScheme');
-const cardScheme = require('./cardScheme');
-const loginScheme = require('./loginScheme');
-const signupScheme = require('./signupScheme');
+import boardScheme from './boardScheme';
+import cardScheme from './cardScheme';
+import loginScheme from './loginScheme';
+import signupScheme from './signupScheme';
 
-module.exports = {
+export default {
     boardScheme,
     cardScheme,
     loginScheme,
