@@ -3,8 +3,11 @@
   "extends": [
     "airbnb-base",
     "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "prettier/@typescript-eslint",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:import/typescript"
   ],
   "rules": {
     "object-shorthand": ["error", "properties"],
@@ -21,7 +24,8 @@
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 8,
+    "project": "./tsconfig.json",
+    "ecmaVersion": 2017,
     "sourceType": "module"
   }
 }
