@@ -2,7 +2,7 @@
   "name": "trello-api",
   "version": "1.0.0",
   "description": "REST API which allows you to do simple CRUD operations with role permissions.",
-  "main": "src/server.js",
+  "main": "dist/server.js",
   "scripts": {
     "tsc": "tsc",
     "start": "nodemon --watch src --ext js,ts,json --exec ts-node --transpile-only ./src/server.js",
