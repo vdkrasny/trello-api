@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/unbound-method */
+
 class AuthController {
     constructor(container) {
         this.authService = container.get('authService');

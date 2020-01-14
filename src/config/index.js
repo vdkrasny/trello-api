@@ -4,7 +4,7 @@ export default Object.freeze({
         development: 'development',
         production: 'production',
     },
-    port: parseInt(process.env.PORT, 10) || 3000,
+    port: parseInt(process.env.PORT || '3000', 10),
     jwt: {
         secret: process.env.JWT_SECRET || 'theSecret',
         expiresIn: '7d',

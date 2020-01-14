@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/unbound-method */
+
 class CardController {
     constructor(container) {
         this.cardService = container.get('cardService');

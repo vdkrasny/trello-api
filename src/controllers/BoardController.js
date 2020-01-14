@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/unbound-method */
+
 class BoardController {
     constructor(container) {
         this.boardService = container.get('boardService');

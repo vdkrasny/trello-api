@@ -14,19 +14,20 @@ class DBClient {
         }
 
         return new Promise((resolve, reject) => {
-            fs.readFile(this.filePath, (readingFileError, json) => {
+            fs.readFile(this.filePath, (readingFileError, rawCollection) => {
                 if (readingFileError) {
                     return reject(readingFileError);
                 }
 
                 try {
-                    const parsedJson = JSON.parse(json);
+                    const collection = rawCollection.toString('binary');
+                    const parsedCollection = JSON.parse(collection);
 
-                    if (!Array.isArray(parsedJson)) {
+                    if (!Array.isArray(parsedCollection)) {
                         throw new Error('The format of the stored data is not an array.');
                     }
 
-                    return resolve(parsedJson);
+                    return resolve(parsedCollection);
                 } catch (error) {
                     return reject(
                         new Error(`The requested collection ${this.filePath} has not been read. ${error.message}`)
@@ -36,12 +37,12 @@ class DBClient {
         });
     }
 
-    saveCollection(json) {
+    saveCollection(collection) {
         return new Promise((resolve, reject) => {
             try {
-                const convertedJson = JSON.stringify(json);
+                const convertedCollection = JSON.stringify(collection);
 
-                return fs.writeFile(this.filePath, convertedJson, writingFileError => {
+                return fs.writeFile(this.filePath, convertedCollection, writingFileError => {
                     if (writingFileError) {
                         return reject(writingFileError);
                     }

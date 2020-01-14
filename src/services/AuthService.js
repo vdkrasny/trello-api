@@ -9,7 +9,7 @@ class AuthService {
         this.userModel = container.get('userModel');
     }
 
-    async signUp({ login, password } = {}) {
+    async signUp({ login = '', password = '' }) {
         const foundUser = await this.userModel.findOne({ login });
 
         if (foundUser) {
@@ -30,12 +30,18 @@ class AuthService {
         };
     }
 
-    async logIn({ login, password } = {}) {
-        const foundUser = (await this.userModel.findOne({ login })) || {};
-        const isPasswordCorrect = await bcrypt.compare(password, foundUser.password || '');
+    async logIn({ login = '', password = '' }) {
+        const authenticationErrorMessage = 'Username or password is incorrect.';
+        const foundUser = await this.userModel.findOne({ login });
+
+        if (!foundUser) {
+            throw new AuthenticationError(authenticationErrorMessage);
+        }
+
+        const isPasswordCorrect = await bcrypt.compare(password, foundUser.password);
 
         if (!isPasswordCorrect) {
-            throw new AuthenticationError('Username or password is incorrect.');
+            throw new AuthenticationError(authenticationErrorMessage);
         }
 
         const token = this._generateToken(foundUser);
@@ -46,7 +52,7 @@ class AuthService {
         };
     }
 
-    _generateToken({ id, login, role } = {}) {
+    _generateToken({ id = '', login = '', role = '' }) {
         return jwt.sign({ id, login, role }, config.jwt.secret, { expiresIn: config.jwt.expiresIn });
     }
 }
