@@ -1,4 +1,4 @@
-import DBClient from '../DBClient';
+import { DBClient } from '../DBClient';
 
 class Model extends DBClient {
     async getAll() {
