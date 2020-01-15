@@ -3,7 +3,7 @@ import { Container } from 'typedi';
 
 import middlewares from '../middlewares';
 import schemes from '../schemes';
-import CardModel from '../../models/CardModel';
+import { CardModel } from '../../models/CardModel';
 import CardService from '../../services/CardService';
 import CardController from '../../controllers/CardController';
 
