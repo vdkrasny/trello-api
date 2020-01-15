@@ -1,23 +1,36 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+import { UserModel, User } from '../models/UserModel';
 import AuthenticationError from '../errors/AuthenticationError';
 import config from '../config';
 
-class AuthService {
+export interface AuthCredentials {
+    login: string;
+    password: string;
+}
+
+export interface SuccessAuthData {
+    userId: string;
+    token: string;
+}
+
+export class AuthService {
+    private _userModel: UserModel;
+
     constructor(container) {
-        this.userModel = container.get('userModel');
+        this._userModel = container.get('userModel');
     }
 
-    async signUp({ login = '', password = '' }) {
-        const foundUser = await this.userModel.findOne({ login });
+    public async signUp({ login, password }: AuthCredentials): Promise<SuccessAuthData> {
+        const foundUser = await this._userModel.findOne({ login });
 
         if (foundUser) {
             throw new AuthenticationError('This login is already registered.');
         }
 
         const hashedPassword = await bcrypt.hash(password, 12);
-        const newUser = await this.userModel.create({
+        const newUser = await this._userModel.create({
             login,
             password: hashedPassword,
             role: 'user',
@@ -30,9 +43,9 @@ class AuthService {
         };
     }
 
-    async logIn({ login = '', password = '' }) {
+    public async logIn({ login, password }: AuthCredentials): Promise<SuccessAuthData> {
         const authenticationErrorMessage = 'Username or password is incorrect.';
-        const foundUser = await this.userModel.findOne({ login });
+        const foundUser = await this._userModel.findOne({ login });
 
         if (!foundUser) {
             throw new AuthenticationError(authenticationErrorMessage);
@@ -52,7 +65,7 @@ class AuthService {
         };
     }
 
-    _generateToken({ id = '', login = '', role = '' }) {
+    private _generateToken({ id, login, role }: User): string {
         return jwt.sign({ id, login, role }, config.jwt.secret, { expiresIn: config.jwt.expiresIn });
     }
 }
