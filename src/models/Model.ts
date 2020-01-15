@@ -1,13 +1,18 @@
 import { DBClient } from '../DBClient';
 
-class Model extends DBClient {
-    async getAll() {
+export interface ModelItem {
+    readonly id: string;
+    readonly createdAt: string;
+}
+
+export class Model<T extends ModelItem> extends DBClient<T> {
+    public async getAll(): Promise<T[]> {
         const collection = await this.getCollection();
 
         return collection;
     }
 
-    async find(conditions = {}) {
+    public async find(conditions: Partial<T>): Promise<T[] | null> {
         const conditionsKeys = Object.keys(conditions);
 
         if (!conditionsKeys.length) {
@@ -16,7 +21,7 @@ class Model extends DBClient {
 
         const collection = await this.getCollection();
         const [firstConditionsKey, ...restConditionsKeys] = conditionsKeys;
-        let foundItems;
+        let foundItems: T[];
 
         foundItems = collection.filter(
             collectionItem => collectionItem[firstConditionsKey] === conditions[firstConditionsKey]
@@ -41,7 +46,7 @@ class Model extends DBClient {
         return foundItems;
     }
 
-    async findOne(conditions = {}) {
+    public async findOne(conditions: Partial<T>): Promise<T | null> {
         const foundItems = await this.find(conditions);
 
         if (!foundItems) {
@@ -53,9 +58,9 @@ class Model extends DBClient {
         return firstFoundItem;
     }
 
-    async findById(id) {
+    public async findById(id: string): Promise<T | null> {
         const collection = await this.getCollection();
-        const foundItem = collection.find(({ id: itemId }) => itemId === id);
+        const foundItem = collection.find(item => item.id === id);
 
         if (!foundItem) {
             return null;
@@ -64,9 +69,9 @@ class Model extends DBClient {
         return foundItem;
     }
 
-    async findByIdAndUpdate(id, body = {}) {
+    public async findByIdAndUpdate(id: string, body: Omit<T, keyof ModelItem>): Promise<T | null> {
         const collection = await this.getCollection();
-        const foundItemIndex = collection.findIndex(({ id: itemId }) => itemId === id);
+        const foundItemIndex = collection.findIndex(item => item.id === id);
 
         if (foundItemIndex === -1) {
             return null;
@@ -84,9 +89,9 @@ class Model extends DBClient {
         return updatedItem;
     }
 
-    async findByIdAndDelete(id) {
+    public async findByIdAndDelete(id: string): Promise<T | null> {
         const collection = await this.getCollection();
-        const foundItemIndex = collection.findIndex(({ id: itemId }) => itemId === id);
+        const foundItemIndex = collection.findIndex(item => item.id === id);
 
         if (foundItemIndex === -1) {
             return null;
@@ -98,21 +103,26 @@ class Model extends DBClient {
         return deletedItem;
     }
 
-    async create(body = {}) {
+    public async create(body: Omit<T, keyof ModelItem>): Promise<T> {
         const collection = await this.getCollection();
-        const randomId = Math.random()
-            .toString(36)
-            .substr(2, 9);
+        const createdAt = new Date().toString();
+        const id = this._generateRandomId();
         const createdItem = {
             ...body,
-            createdAt: new Date(),
-            id: randomId,
-        };
+            createdAt,
+            id,
+        } as T;
 
         collection.push(createdItem);
         await this.saveCollection(collection);
 
         return createdItem;
+    }
+
+    private _generateRandomId(): string {
+        return Math.random()
+            .toString(36)
+            .substr(2, 9);
     }
 }
 
