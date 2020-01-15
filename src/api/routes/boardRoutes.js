@@ -3,7 +3,7 @@ import { Container } from 'typedi';
 
 import middlewares from '../middlewares';
 import schemes from '../schemes';
-import BoardModel from '../../models/BoardModel';
+import { BoardModel } from '../../models/BoardModel';
 import BoardService from '../../services/BoardService';
 import BoardController from '../../controllers/BoardController';
 
