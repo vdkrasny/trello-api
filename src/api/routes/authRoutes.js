@@ -3,7 +3,7 @@ import { Container } from 'typedi';
 
 import middlewares from '../middlewares';
 import schemes from '../schemes';
-import UserModel from '../../models/UserModel';
+import { UserModel } from '../../models/UserModel';
 import AuthService from '../../services/AuthService';
 import AuthController from '../../controllers/AuthController';
 
