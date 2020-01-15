@@ -1,28 +1,30 @@
 import NotFoundError from '../errors/NotFoundError';
+import { BoardModel, Board } from '../models/BoardModel';
 
-class BoardService {
+export class BoardService {
+    private boardModel: BoardModel;
+
     constructor(container) {
         this.boardModel = container.get('boardModel');
     }
 
-    async create({ name, color, description }) {
-        const newBoard = {
+    public async create({ name, color, description }: Board): Promise<Board> {
+        const createdBoard = await this.boardModel.create({
             name,
             color,
             description,
-        };
-        const createdBoard = await this.boardModel.create(newBoard);
+        });
 
         return createdBoard;
     }
 
-    async getAll() {
+    public async getAll(): Promise<Board[]> {
         const boards = await this.boardModel.getAll();
 
         return boards;
     }
 
-    async getById(boardId) {
+    public async getById(boardId: string): Promise<Board> {
         const foundBoard = await this.boardModel.findById(boardId);
 
         if (!foundBoard) {
@@ -32,7 +34,7 @@ class BoardService {
         return foundBoard;
     }
 
-    async updateById(boardId, { name, color, description }) {
+    public async updateById(boardId: string, { name, color, description }: Board): Promise<Board> {
         const updatedBoard = await this.boardModel.findByIdAndUpdate(boardId, {
             name,
             color,
@@ -46,7 +48,7 @@ class BoardService {
         return updatedBoard;
     }
 
-    async deleteById(boardId) {
+    public async deleteById(boardId: string): Promise<Board> {
         const deletedBoard = await this.boardModel.findByIdAndDelete(boardId);
 
         if (!deletedBoard) {
