@@ -3,14 +3,14 @@ import { Request, Response } from 'express';
 import { BoardService } from '../services/BoardService';
 
 export class BoardController {
-    private boardService: BoardService;
+    private _boardService: BoardService;
 
     constructor(container) {
-        this.boardService = container.get('boardService');
+        this._boardService = container.get('boardService');
     }
 
     public getAll = async (_: Request, response: Response): Promise<Response> => {
-        const boards = await this.boardService.getAll();
+        const boards = await this._boardService.getAll();
 
         return response.status(200).json(boards);
     };
@@ -20,7 +20,7 @@ export class BoardController {
             params: { boardId },
         } = request;
 
-        const foundBoard = await this.boardService.getById(boardId);
+        const foundBoard = await this._boardService.getById(boardId);
 
         return response.status(200).json(foundBoard);
     };
@@ -28,7 +28,7 @@ export class BoardController {
     public create = async (request: Request, response: Response): Promise<Response> => {
         const { body } = request;
 
-        const createdBoard = await this.boardService.create(body);
+        const createdBoard = await this._boardService.create(body);
 
         return response.status(201).json(createdBoard);
     };
@@ -39,7 +39,7 @@ export class BoardController {
             params: { boardId },
         } = request;
 
-        await this.boardService.updateById(boardId, body);
+        await this._boardService.updateById(boardId, body);
 
         return response.status(204).end();
     };
@@ -49,7 +49,7 @@ export class BoardController {
             params: { boardId },
         } = request;
 
-        await this.boardService.deleteById(boardId);
+        await this._boardService.deleteById(boardId);
 
         return response.status(204).end();
     };

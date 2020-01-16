@@ -2,14 +2,14 @@ import NotFoundError from '../errors/NotFoundError';
 import { CardModel, Card } from '../models/CardModel';
 
 export class CardService {
-    private cardModel: CardModel;
+    private _cardModel: CardModel;
 
     constructor(container) {
-        this.cardModel = container.get('cardModel');
+        this._cardModel = container.get('cardModel');
     }
 
     public async create({ name, description, estimate, status, dueDate, labels }: Card): Promise<Card> {
-        const createdCard = await this.cardModel.create({
+        const createdCard = await this._cardModel.create({
             name,
             description,
             estimate,
@@ -22,13 +22,13 @@ export class CardService {
     }
 
     public async getAll(): Promise<Card[]> {
-        const cards = await this.cardModel.getAll();
+        const cards = await this._cardModel.getAll();
 
         return cards;
     }
 
     public async getById(cardId: string): Promise<Card> {
-        const foundCard = await this.cardModel.findById(cardId);
+        const foundCard = await this._cardModel.findById(cardId);
 
         if (!foundCard) {
             throw new NotFoundError('The requested Card was not found');
@@ -41,7 +41,7 @@ export class CardService {
         cardId: string,
         { name, description, estimate, status, dueDate, labels }: Card
     ): Promise<Card> {
-        const updatedCard = await this.cardModel.findByIdAndUpdate(cardId, {
+        const updatedCard = await this._cardModel.findByIdAndUpdate(cardId, {
             name,
             description,
             estimate,
@@ -58,7 +58,7 @@ export class CardService {
     }
 
     public async deleteById(cardId: string): Promise<Card> {
-        const deletedCard = await this.cardModel.findByIdAndDelete(cardId);
+        const deletedCard = await this._cardModel.findByIdAndDelete(cardId);
 
         if (!deletedCard) {
             throw new NotFoundError('The requested Card was not found');

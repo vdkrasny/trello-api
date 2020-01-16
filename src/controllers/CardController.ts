@@ -3,14 +3,14 @@ import { Request, Response } from 'express';
 import { CardService } from '../services/CardService';
 
 export class CardController {
-    private cardService: CardService;
+    private _cardService: CardService;
 
     constructor(container) {
-        this.cardService = container.get('cardService');
+        this._cardService = container.get('cardService');
     }
 
     public getAll = async (_: Request, response: Response): Promise<Response> => {
-        const cards = await this.cardService.getAll();
+        const cards = await this._cardService.getAll();
 
         return response.status(200).json(cards);
     };
@@ -20,7 +20,7 @@ export class CardController {
             params: { cardId },
         } = request;
 
-        const foundCard = await this.cardService.getById(cardId);
+        const foundCard = await this._cardService.getById(cardId);
 
         return response.status(200).json(foundCard);
     };
@@ -28,7 +28,7 @@ export class CardController {
     public create = async (request: Request, response: Response): Promise<Response> => {
         const { body } = request;
 
-        const createdCard = await this.cardService.create(body);
+        const createdCard = await this._cardService.create(body);
 
         return response.status(201).json(createdCard);
     };
@@ -39,7 +39,7 @@ export class CardController {
             params: { cardId },
         } = request;
 
-        await this.cardService.updateById(cardId, body);
+        await this._cardService.updateById(cardId, body);
 
         return response.status(204).end();
     };
@@ -49,7 +49,7 @@ export class CardController {
             params: { cardId },
         } = request;
 
-        await this.cardService.deleteById(cardId);
+        await this._cardService.deleteById(cardId);
 
         return response.status(204).end();
     };

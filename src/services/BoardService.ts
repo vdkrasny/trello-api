@@ -2,14 +2,14 @@ import NotFoundError from '../errors/NotFoundError';
 import { BoardModel, Board } from '../models/BoardModel';
 
 export class BoardService {
-    private boardModel: BoardModel;
+    private _boardModel: BoardModel;
 
     constructor(container) {
-        this.boardModel = container.get('boardModel');
+        this._boardModel = container.get('boardModel');
     }
 
     public async create({ name, color, description }: Board): Promise<Board> {
-        const createdBoard = await this.boardModel.create({
+        const createdBoard = await this._boardModel.create({
             name,
             color,
             description,
@@ -19,13 +19,13 @@ export class BoardService {
     }
 
     public async getAll(): Promise<Board[]> {
-        const boards = await this.boardModel.getAll();
+        const boards = await this._boardModel.getAll();
 
         return boards;
     }
 
     public async getById(boardId: string): Promise<Board> {
-        const foundBoard = await this.boardModel.findById(boardId);
+        const foundBoard = await this._boardModel.findById(boardId);
 
         if (!foundBoard) {
             throw new NotFoundError('The requested Board was not found');
@@ -35,7 +35,7 @@ export class BoardService {
     }
 
     public async updateById(boardId: string, { name, color, description }: Board): Promise<Board> {
-        const updatedBoard = await this.boardModel.findByIdAndUpdate(boardId, {
+        const updatedBoard = await this._boardModel.findByIdAndUpdate(boardId, {
             name,
             color,
             description,
@@ -49,7 +49,7 @@ export class BoardService {
     }
 
     public async deleteById(boardId: string): Promise<Board> {
-        const deletedBoard = await this.boardModel.findByIdAndDelete(boardId);
+        const deletedBoard = await this._boardModel.findByIdAndDelete(boardId);
 
         if (!deletedBoard) {
             throw new NotFoundError('The requested Board was not found');
