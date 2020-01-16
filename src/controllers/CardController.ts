@@ -1,15 +1,21 @@
-class CardController {
+import { Request, Response } from 'express';
+
+import { CardService } from '../services/CardService';
+
+export class CardController {
+    private cardService: CardService;
+
     constructor(container) {
         this.cardService = container.get('cardService');
     }
 
-    getAll = async (_, response) => {
+    public getAll = async (_: Request, response: Response): Promise<Response> => {
         const cards = await this.cardService.getAll();
 
         return response.status(200).json(cards);
     };
 
-    getById = async (request, response) => {
+    public getById = async (request: Request, response: Response): Promise<Response> => {
         const {
             params: { cardId },
         } = request;
@@ -19,7 +25,7 @@ class CardController {
         return response.status(200).json(foundCard);
     };
 
-    create = async (request, response) => {
+    public create = async (request: Request, response: Response): Promise<Response> => {
         const { body } = request;
 
         const createdCard = await this.cardService.create(body);
@@ -27,7 +33,7 @@ class CardController {
         return response.status(201).json(createdCard);
     };
 
-    updateById = async (request, response) => {
+    public updateById = async (request: Request, response: Response): Promise<void> => {
         const {
             body,
             params: { cardId },
@@ -38,7 +44,7 @@ class CardController {
         return response.status(204).end();
     };
 
-    deleteById = async (request, response) => {
+    public deleteById = async (request: Request, response: Response): Promise<void> => {
         const {
             params: { cardId },
         } = request;

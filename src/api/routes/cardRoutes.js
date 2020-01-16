@@ -5,7 +5,7 @@ import middlewares from '../middlewares';
 import schemes from '../schemes';
 import { CardModel } from '../../models/CardModel';
 import { CardService } from '../../services/CardService';
-import CardController from '../../controllers/CardController';
+import { CardController } from '../../controllers/CardController';
 
 Container.set('cardModel', new CardModel());
 Container.set('cardService', new CardService(Container));
