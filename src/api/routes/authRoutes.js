@@ -5,7 +5,7 @@ import middlewares from '../middlewares';
 import schemes from '../schemes';
 import { UserModel } from '../../models/UserModel';
 import { AuthService } from '../../services/AuthService';
-import AuthController from '../../controllers/AuthController';
+import { AuthController } from '../../controllers/AuthController';
 
 Container.set('userModel', new UserModel());
 Container.set('authService', new AuthService(Container));
