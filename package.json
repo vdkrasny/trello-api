@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "tsc": "tsc",
-    "start": "nodemon --watch src --ext js,ts,json --exec ts-node --transpile-only ./src/server.js",
+    "start": "nodemon --watch src --ext js,ts,json --exec ts-node --transpile-only ./src/server.ts",
     "production": "rimraf dist && tsc && cross-env NODE_ENV=production node dist/server.js",
     "lint": "eslint --ext .js,.ts src",
     "lint:fix": "eslint --ext .js,.ts src --fix"

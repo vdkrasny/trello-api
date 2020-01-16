@@ -7,7 +7,7 @@ import config from './config';
 import api from './api';
 import logger from './helpers/logger';
 
-const startServer = () => {
+const startServer = (): void => {
     const server = express();
 
     server.use(helmet());
