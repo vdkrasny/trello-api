@@ -1,15 +1,21 @@
-class BoardController {
+import { Request, Response } from 'express';
+
+import { BoardService } from '../services/BoardService';
+
+export class BoardController {
+    private boardService: BoardService;
+
     constructor(container) {
         this.boardService = container.get('boardService');
     }
 
-    getAll = async (_, response) => {
+    public getAll = async (_: Request, response: Response): Promise<Response> => {
         const boards = await this.boardService.getAll();
 
         return response.status(200).json(boards);
     };
 
-    getById = async (request, response) => {
+    public getById = async (request: Request, response: Response): Promise<Response> => {
         const {
             params: { boardId },
         } = request;
@@ -19,7 +25,7 @@ class BoardController {
         return response.status(200).json(foundBoard);
     };
 
-    create = async (request, response) => {
+    public create = async (request: Request, response: Response): Promise<Response> => {
         const { body } = request;
 
         const createdBoard = await this.boardService.create(body);
@@ -27,7 +33,7 @@ class BoardController {
         return response.status(201).json(createdBoard);
     };
 
-    updateById = async (request, response) => {
+    public updateById = async (request: Request, response: Response): Promise<void> => {
         const {
             body,
             params: { boardId },
@@ -38,7 +44,7 @@ class BoardController {
         return response.status(204).end();
     };
 
-    deleteById = async (request, response) => {
+    public deleteById = async (request: Request, response: Response): Promise<void> => {
         const {
             params: { boardId },
         } = request;
