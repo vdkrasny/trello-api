@@ -1,23 +1,15 @@
-/* eslint-disable @typescript-eslint/unbound-method */
-
 class BoardController {
     constructor(container) {
         this.boardService = container.get('boardService');
-
-        this.getAll = this.getAll.bind(this);
-        this.getById = this.getById.bind(this);
-        this.create = this.create.bind(this);
-        this.updateById = this.updateById.bind(this);
-        this.deleteById = this.deleteById.bind(this);
     }
 
-    async getAll(request, response) {
+    getAll = async (_, response) => {
         const boards = await this.boardService.getAll();
 
         return response.status(200).json(boards);
-    }
+    };
 
-    async getById(request, response) {
+    getById = async (request, response) => {
         const {
             params: { boardId },
         } = request;
@@ -25,17 +17,17 @@ class BoardController {
         const foundBoard = await this.boardService.getById(boardId);
 
         return response.status(200).json(foundBoard);
-    }
+    };
 
-    async create(request, response) {
+    create = async (request, response) => {
         const { body } = request;
 
         const createdBoard = await this.boardService.create(body);
 
         return response.status(201).json(createdBoard);
-    }
+    };
 
-    async updateById(request, response) {
+    updateById = async (request, response) => {
         const {
             body,
             params: { boardId },
@@ -44,9 +36,9 @@ class BoardController {
         await this.boardService.updateById(boardId, body);
 
         return response.status(204).end();
-    }
+    };
 
-    async deleteById(request, response) {
+    deleteById = async (request, response) => {
         const {
             params: { boardId },
         } = request;
@@ -54,7 +46,7 @@ class BoardController {
         await this.boardService.deleteById(boardId);
 
         return response.status(204).end();
-    }
+    };
 }
 
 export default BoardController;
