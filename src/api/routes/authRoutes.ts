@@ -11,7 +11,7 @@ Container.set('userModel', new UserModel());
 Container.set('authService', new AuthService(Container));
 Container.set('authController', new AuthController(Container));
 
-const authController = Container.get('authController');
+const authController = Container.get<AuthController>('authController');
 const router = express.Router();
 
 router.post(

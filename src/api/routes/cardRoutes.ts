@@ -11,7 +11,7 @@ Container.set('cardModel', new CardModel());
 Container.set('cardService', new CardService(Container));
 Container.set('cardController', new CardController(Container));
 
-const cardController = Container.get('cardController');
+const cardController = Container.get<CardController>('cardController');
 const router = express.Router();
 
 router.get('/', middlewares.requestCover(cardController.getAll));

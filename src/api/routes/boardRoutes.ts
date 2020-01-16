@@ -11,7 +11,7 @@ Container.set('boardModel', new BoardModel());
 Container.set('boardService', new BoardService(Container));
 Container.set('boardController', new BoardController(Container));
 
-const boardController = Container.get('boardController');
+const boardController = Container.get<BoardController>('boardController');
 const router = express.Router();
 
 router.get('/', middlewares.requestCover(boardController.getAll));
