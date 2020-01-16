@@ -3,15 +3,9 @@ import { Container } from 'typedi';
 
 import middlewares from '../middlewares';
 import schemes from '../schemes';
-import { UserModel } from '../../models/UserModel';
-import { AuthService } from '../../services/AuthService';
 import { AuthController } from '../../controllers/AuthController';
 
-Container.set('userModel', new UserModel());
-Container.set('authService', new AuthService(Container));
-Container.set('authController', new AuthController(Container));
-
-const authController = Container.get<AuthController>('authController');
+const authController = Container.get(AuthController);
 const router = express.Router();
 
 router.post(

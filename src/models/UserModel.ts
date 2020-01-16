@@ -1,3 +1,5 @@
+import { Service } from 'typedi';
+
 import { Model, ModelItem } from './Model';
 
 export interface User extends ModelItem {
@@ -6,6 +8,7 @@ export interface User extends ModelItem {
     role: string;
 }
 
+@Service()
 export class UserModel extends Model<User> {
     constructor() {
         super('users');

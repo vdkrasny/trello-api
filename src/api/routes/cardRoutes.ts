@@ -3,15 +3,9 @@ import { Container } from 'typedi';
 
 import middlewares from '../middlewares';
 import schemes from '../schemes';
-import { CardModel } from '../../models/CardModel';
-import { CardService } from '../../services/CardService';
 import { CardController } from '../../controllers/CardController';
 
-Container.set('cardModel', new CardModel());
-Container.set('cardService', new CardService(Container));
-Container.set('cardController', new CardController(Container));
-
-const cardController = Container.get<CardController>('cardController');
+const cardController = Container.get(CardController);
 const router = express.Router();
 
 router.get('/', middlewares.requestCover(cardController.getAll));

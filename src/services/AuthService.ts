@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { Service, Inject } from 'typedi';
 
 import { UserModel, User } from '../models/UserModel';
 import AuthenticationError from '../errors/AuthenticationError';
@@ -15,12 +16,10 @@ export interface SuccessAuthData {
     token: string;
 }
 
+@Service()
 export class AuthService {
-    private _userModel: UserModel;
-
-    constructor(container) {
-        this._userModel = container.get('userModel');
-    }
+    @Inject()
+    private _userModel!: UserModel;
 
     public async signUp({ login, password }: AuthCredentials): Promise<SuccessAuthData> {
         const foundUser = await this._userModel.findOne({ login });

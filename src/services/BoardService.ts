@@ -1,12 +1,11 @@
+import { Inject } from 'typedi';
+
 import NotFoundError from '../errors/NotFoundError';
 import { BoardModel, Board } from '../models/BoardModel';
 
 export class BoardService {
-    private _boardModel: BoardModel;
-
-    constructor(container) {
-        this._boardModel = container.get('boardModel');
-    }
+    @Inject()
+    private _boardModel!: BoardModel;
 
     public async create({ name, color, description }: Board): Promise<Board> {
         const createdBoard = await this._boardModel.create({

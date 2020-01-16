@@ -1,13 +1,12 @@
 import { Request, Response } from 'express';
+import { Service, Inject } from 'typedi';
 
 import { CardService } from '../services/CardService';
 
+@Service()
 export class CardController {
-    private _cardService: CardService;
-
-    constructor(container) {
-        this._cardService = container.get('cardService');
-    }
+    @Inject()
+    private _cardService!: CardService;
 
     public getAll = async (_: Request, response: Response): Promise<Response> => {
         const cards = await this._cardService.getAll();

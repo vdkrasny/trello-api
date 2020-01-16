@@ -1,13 +1,12 @@
 import { Request, Response } from 'express';
+import { Service, Inject } from 'typedi';
 
 import { AuthService } from '../services/AuthService';
 
+@Service()
 export class AuthController {
-    private _authService: AuthService;
-
-    constructor(container) {
-        this._authService = container.get('authService');
-    }
+    @Inject()
+    private _authService!: AuthService;
 
     public signUp = async (request: Request, response: Response): Promise<Response> => {
         const { userId, token } = await this._authService.signUp(request.body);

@@ -51,6 +51,7 @@
     "express": "^4.17.1",
     "helmet": "^3.21.0",
     "jsonwebtoken": "^8.5.1",
+    "reflect-metadata": "^0.1.13",
     "typedi": "^0.8.0",
     "winston": "^3.2.1"
   }

@@ -1,12 +1,11 @@
+import { Inject } from 'typedi';
+
 import NotFoundError from '../errors/NotFoundError';
 import { CardModel, Card } from '../models/CardModel';
 
 export class CardService {
-    private _cardModel: CardModel;
-
-    constructor(container) {
-        this._cardModel = container.get('cardModel');
-    }
+    @Inject()
+    private _cardModel!: CardModel;
 
     public async create({ name, description, estimate, status, dueDate, labels }: Card): Promise<Card> {
         const createdCard = await this._cardModel.create({

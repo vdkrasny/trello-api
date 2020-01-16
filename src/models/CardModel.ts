@@ -1,3 +1,5 @@
+import { Service } from 'typedi';
+
 import { Model, ModelItem } from './Model';
 
 export interface Card extends ModelItem {
@@ -9,6 +11,7 @@ export interface Card extends ModelItem {
     labels: string[];
 }
 
+@Service()
 export class CardModel extends Model<Card> {
     constructor() {
         super('cards');

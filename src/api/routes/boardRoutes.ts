@@ -3,15 +3,9 @@ import { Container } from 'typedi';
 
 import middlewares from '../middlewares';
 import schemes from '../schemes';
-import { BoardModel } from '../../models/BoardModel';
-import { BoardService } from '../../services/BoardService';
 import { BoardController } from '../../controllers/BoardController';
 
-Container.set('boardModel', new BoardModel());
-Container.set('boardService', new BoardService(Container));
-Container.set('boardController', new BoardController(Container));
-
-const boardController = Container.get<BoardController>('boardController');
+const boardController = Container.get(BoardController);
 const router = express.Router();
 
 router.get('/', middlewares.requestCover(boardController.getAll));
