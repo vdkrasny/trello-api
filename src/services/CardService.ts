@@ -1,6 +1,6 @@
 import { Inject } from 'typedi';
 
-import NotFoundError from '../errors/NotFoundError';
+import { NotFoundException } from '../exceptions/NotFoundException';
 import { CardModel, Card } from '../models/CardModel';
 
 export class CardService {
@@ -30,7 +30,7 @@ export class CardService {
         const foundCard = await this._cardModel.findById(cardId);
 
         if (!foundCard) {
-            throw new NotFoundError('The requested Card was not found');
+            throw new NotFoundException('The requested Card was not found');
         }
 
         return foundCard;
@@ -50,7 +50,7 @@ export class CardService {
         });
 
         if (!updatedCard) {
-            throw new NotFoundError('The requested Card was not found');
+            throw new NotFoundException('The requested Card was not found');
         }
 
         return updatedCard;
@@ -60,7 +60,7 @@ export class CardService {
         const deletedCard = await this._cardModel.findByIdAndDelete(cardId);
 
         if (!deletedCard) {
-            throw new NotFoundError('The requested Card was not found');
+            throw new NotFoundException('The requested Card was not found');
         }
 
         return deletedCard;

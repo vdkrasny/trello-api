@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { Service, Inject } from 'typedi';
 
 import { UserModel, User } from '../models/UserModel';
-import AuthenticationError from '../errors/AuthenticationError';
+import { AuthenticationException } from '../exceptions/AuthenticationException';
 import config from '../config';
 
 export interface AuthCredentials {
@@ -25,7 +25,7 @@ export class AuthService {
         const foundUser = await this._userModel.findOne({ login });
 
         if (foundUser) {
-            throw new AuthenticationError('This login is already registered.');
+            throw new AuthenticationException('This login is already registered.');
         }
 
         const hashedPassword = await bcrypt.hash(password, 12);
@@ -47,13 +47,13 @@ export class AuthService {
         const foundUser = await this._userModel.findOne({ login });
 
         if (!foundUser) {
-            throw new AuthenticationError(authenticationErrorMessage);
+            throw new AuthenticationException(authenticationErrorMessage);
         }
 
         const isPasswordCorrect = await bcrypt.compare(password, foundUser.password);
 
         if (!isPasswordCorrect) {
-            throw new AuthenticationError(authenticationErrorMessage);
+            throw new AuthenticationException(authenticationErrorMessage);
         }
 
         const token = this._generateToken(foundUser);

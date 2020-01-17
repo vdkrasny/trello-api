@@ -1,6 +1,6 @@
 import { Inject } from 'typedi';
 
-import NotFoundError from '../errors/NotFoundError';
+import { NotFoundException } from '../exceptions/NotFoundException';
 import { BoardModel, Board } from '../models/BoardModel';
 
 export class BoardService {
@@ -27,7 +27,7 @@ export class BoardService {
         const foundBoard = await this._boardModel.findById(boardId);
 
         if (!foundBoard) {
-            throw new NotFoundError('The requested Board was not found');
+            throw new NotFoundException('The requested Board was not found');
         }
 
         return foundBoard;
@@ -41,7 +41,7 @@ export class BoardService {
         });
 
         if (!updatedBoard) {
-            throw new NotFoundError('The requested Board was not found');
+            throw new NotFoundException('The requested Board was not found');
         }
 
         return updatedBoard;
@@ -51,7 +51,7 @@ export class BoardService {
         const deletedBoard = await this._boardModel.findByIdAndDelete(boardId);
 
         if (!deletedBoard) {
-            throw new NotFoundError('The requested Board was not found');
+            throw new NotFoundException('The requested Board was not found');
         }
 
         return deletedBoard;

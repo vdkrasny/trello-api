@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-import AuthenticationError from '../../errors/AuthenticationError';
+import { AuthenticationException } from '../../exceptions/AuthenticationException';
 import config from '../../config';
 
 export default (request, response, next) => {
@@ -14,6 +14,6 @@ export default (request, response, next) => {
 
         return next();
     } catch (error) {
-        return next(new AuthenticationError('You are not authenticated'));
+        return next(new AuthenticationException('You are not authenticated'));
     }
 };

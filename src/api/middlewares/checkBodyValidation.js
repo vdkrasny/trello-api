@@ -1,4 +1,4 @@
-import ValidationError from '../../errors/ValidationError';
+import { ValidationException } from '../../exceptions/ValidationException';
 
 export default validationSchema => (request, response, next) => {
     const validator = validationSchema.validate(request.body);
@@ -7,5 +7,5 @@ export default validationSchema => (request, response, next) => {
         return next();
     }
 
-    return next(new ValidationError(validator.error.details[0].message));
+    return next(new ValidationException(validator.error.details[0].message));
 };
