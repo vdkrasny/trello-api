@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { Service, Inject } from 'typedi';
 
+import { HttpStatus } from '../enums/HttpStatus';
 import { BoardService } from '../services/BoardService';
 
 @Service()
@@ -11,7 +12,7 @@ export class BoardController {
     public getAll = async (_: Request, response: Response): Promise<Response> => {
         const boards = await this._boardService.getAll();
 
-        return response.status(200).json(boards);
+        return response.status(HttpStatus.OK).json(boards);
     };
 
     public getById = async (request: Request, response: Response): Promise<Response> => {
@@ -21,7 +22,7 @@ export class BoardController {
 
         const foundBoard = await this._boardService.getById(boardId);
 
-        return response.status(200).json(foundBoard);
+        return response.status(HttpStatus.OK).json(foundBoard);
     };
 
     public create = async (request: Request, response: Response): Promise<Response> => {
@@ -29,7 +30,7 @@ export class BoardController {
 
         const createdBoard = await this._boardService.create(body);
 
-        return response.status(201).json(createdBoard);
+        return response.status(HttpStatus.Created).json(createdBoard);
     };
 
     public updateById = async (request: Request, response: Response): Promise<void> => {
@@ -40,7 +41,7 @@ export class BoardController {
 
         await this._boardService.updateById(boardId, body);
 
-        return response.status(204).end();
+        return response.status(HttpStatus.NoContent).end();
     };
 
     public deleteById = async (request: Request, response: Response): Promise<void> => {
@@ -50,7 +51,7 @@ export class BoardController {
 
         await this._boardService.deleteById(boardId);
 
-        return response.status(204).end();
+        return response.status(HttpStatus.NoContent).end();
     };
 }
 
