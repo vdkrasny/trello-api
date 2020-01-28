@@ -1,15 +1,7 @@
 import { Service } from 'typedi';
 
-import { Model, ModelItem } from './Model';
-
-export interface Card extends ModelItem {
-    name: string;
-    description: string;
-    estimate: string;
-    status: string;
-    dueDate: string;
-    labels: string[];
-}
+import { Card } from '../types/Card';
+import { Model } from './Model';
 
 @Service()
 export class CardModel extends Model<Card> {

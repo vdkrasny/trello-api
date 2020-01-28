@@ -1,12 +1,7 @@
 import { Service } from 'typedi';
 
-import { Model, ModelItem } from './Model';
-
-export interface Board extends ModelItem {
-    name: string;
-    color: string;
-    description: string;
-}
+import { Board } from '../types/Board';
+import { Model } from './Model';
 
 @Service()
 export class BoardModel extends Model<Board> {

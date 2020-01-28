@@ -1,12 +1,7 @@
 import { Service } from 'typedi';
 
-import { Model, ModelItem } from './Model';
-
-export interface User extends ModelItem {
-    login: string;
-    password: string;
-    role: string;
-}
+import { User } from '../types/User';
+import { Model } from './Model';
 
 @Service()
 export class UserModel extends Model<User> {

@@ -1,7 +1,8 @@
 import { Inject } from 'typedi';
 
+import { Board } from '../types/Board';
+import { BoardModel } from '../models/BoardModel';
 import { NotFoundException } from '../exceptions/NotFoundException';
-import { BoardModel, Board } from '../models/BoardModel';
 
 export class BoardService {
     @Inject()

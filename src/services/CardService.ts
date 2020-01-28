@@ -1,7 +1,8 @@
 import { Inject } from 'typedi';
 
+import { Card } from '../types/Card';
+import { CardModel } from '../models/CardModel';
 import { NotFoundException } from '../exceptions/NotFoundException';
-import { CardModel, Card } from '../models/CardModel';
 
 export class CardService {
     @Inject()

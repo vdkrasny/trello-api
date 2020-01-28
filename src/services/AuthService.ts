@@ -2,16 +2,17 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { Service, Inject } from 'typedi';
 
-import { UserModel, User } from '../models/UserModel';
+import { User } from '../types/User';
+import { UserModel } from '../models/UserModel';
 import { AuthenticationException } from '../exceptions/AuthenticationException';
 import config from '../config';
 
-export interface AuthCredentials {
+interface AuthCredentials {
     login: string;
     password: string;
 }
 
-export interface SuccessAuthData {
+interface SuccessAuthData {
     userId: string;
     token: string;
 }

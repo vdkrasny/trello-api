@@ -1,9 +1,5 @@
+import { ModelItem } from '../types/ModelItem';
 import { DBClient } from '../DBClient';
-
-export interface ModelItem {
-    readonly id: string;
-    readonly createdAt: string;
-}
 
 export class Model<T extends ModelItem> extends DBClient<T> {
     public async getAll(): Promise<T[]> {
