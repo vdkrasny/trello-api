@@ -4,6 +4,7 @@ import { Service, Inject } from 'typedi';
 
 import { User } from '../types/User';
 import { UserModel } from '../models/UserModel';
+import { UserRoles } from '../enums/UserRoles';
 import { AuthenticationException } from '../exceptions/AuthenticationException';
 import config from '../config';
 
@@ -33,7 +34,7 @@ export class AuthService {
         const newUser = await this._userModel.create({
             login,
             password: hashedPassword,
-            role: 'user',
+            role: UserRoles.user,
         });
         const token = this._generateToken(newUser);
 
