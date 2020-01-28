@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { RequestHandler, Request, Response } from 'express';
 import { Service, Inject } from 'typedi';
 
 import { HttpStatus } from '../enums/HttpStatus';
@@ -9,13 +9,13 @@ export class BoardController {
     @Inject()
     private _boardService!: BoardService;
 
-    public getAll = async (_: Request, response: Response): Promise<Response> => {
+    public getAll: RequestHandler = async (_: Request, response: Response): Promise<Response> => {
         const boards = await this._boardService.getAll();
 
         return response.status(HttpStatus.OK).json(boards);
     };
 
-    public getById = async (request: Request, response: Response): Promise<Response> => {
+    public getById: RequestHandler = async (request: Request, response: Response): Promise<Response> => {
         const {
             params: { boardId },
         } = request;
@@ -25,7 +25,7 @@ export class BoardController {
         return response.status(HttpStatus.OK).json(foundBoard);
     };
 
-    public create = async (request: Request, response: Response): Promise<Response> => {
+    public create: RequestHandler = async (request: Request, response: Response): Promise<Response> => {
         const { body } = request;
 
         const createdBoard = await this._boardService.create(body);
@@ -33,7 +33,7 @@ export class BoardController {
         return response.status(HttpStatus.Created).json(createdBoard);
     };
 
-    public updateById = async (request: Request, response: Response): Promise<void> => {
+    public updateById: RequestHandler = async (request: Request, response: Response): Promise<void> => {
         const {
             body,
             params: { boardId },
@@ -44,7 +44,7 @@ export class BoardController {
         return response.status(HttpStatus.NoContent).end();
     };
 
-    public deleteById = async (request: Request, response: Response): Promise<void> => {
+    public deleteById: RequestHandler = async (request: Request, response: Response): Promise<void> => {
         const {
             params: { boardId },
         } = request;

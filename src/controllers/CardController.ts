@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { RequestHandler, Request, Response } from 'express';
 import { Service, Inject } from 'typedi';
 
 import { HttpStatus } from '../enums/HttpStatus';
@@ -9,13 +9,13 @@ export class CardController {
     @Inject()
     private _cardService!: CardService;
 
-    public getAll = async (_: Request, response: Response): Promise<Response> => {
+    public getAll: RequestHandler = async (_: Request, response: Response): Promise<Response> => {
         const cards = await this._cardService.getAll();
 
         return response.status(HttpStatus.OK).json(cards);
     };
 
-    public getById = async (request: Request, response: Response): Promise<Response> => {
+    public getById: RequestHandler = async (request: Request, response: Response): Promise<Response> => {
         const {
             params: { cardId },
         } = request;
@@ -25,7 +25,7 @@ export class CardController {
         return response.status(HttpStatus.OK).json(foundCard);
     };
 
-    public create = async (request: Request, response: Response): Promise<Response> => {
+    public create: RequestHandler = async (request: Request, response: Response): Promise<Response> => {
         const { body } = request;
 
         const createdCard = await this._cardService.create(body);
@@ -33,7 +33,7 @@ export class CardController {
         return response.status(HttpStatus.Created).json(createdCard);
     };
 
-    public updateById = async (request: Request, response: Response): Promise<void> => {
+    public updateById: RequestHandler = async (request: Request, response: Response): Promise<void> => {
         const {
             body,
             params: { cardId },
@@ -44,7 +44,7 @@ export class CardController {
         return response.status(HttpStatus.NoContent).end();
     };
 
-    public deleteById = async (request: Request, response: Response): Promise<void> => {
+    public deleteById: RequestHandler = async (request: Request, response: Response): Promise<void> => {
         const {
             params: { cardId },
         } = request;
