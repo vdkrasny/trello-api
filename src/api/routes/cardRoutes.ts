@@ -1,4 +1,4 @@
-import express from 'express';
+import { Router } from 'express';
 import { Container } from 'typedi';
 
 import middlewares from '../middlewares';
@@ -6,7 +6,7 @@ import schemes from '../schemes';
 import { CardController } from '../../controllers/CardController';
 
 const cardController = Container.get(CardController);
-const router = express.Router();
+const router = Router();
 
 router.get('/', middlewares.requestCover(cardController.getAll));
 

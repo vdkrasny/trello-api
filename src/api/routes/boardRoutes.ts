@@ -1,4 +1,4 @@
-import express from 'express';
+import { Router } from 'express';
 import { Container } from 'typedi';
 
 import middlewares from '../middlewares';
@@ -6,7 +6,7 @@ import schemes from '../schemes';
 import { BoardController } from '../../controllers/BoardController';
 
 const boardController = Container.get(BoardController);
-const router = express.Router();
+const router = Router();
 
 router.get('/', middlewares.requestCover(boardController.getAll));
 

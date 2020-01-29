@@ -1,4 +1,4 @@
-import express from 'express';
+import { Router } from 'express';
 import { Container } from 'typedi';
 
 import middlewares from '../middlewares';
@@ -6,7 +6,7 @@ import schemes from '../schemes';
 import { AuthController } from '../../controllers/AuthController';
 
 const authController = Container.get(AuthController);
-const router = express.Router();
+const router = Router();
 
 router.post(
     '/signup',
