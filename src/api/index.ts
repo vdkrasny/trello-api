@@ -1,11 +1,11 @@
-import express from 'express';
+import { Router } from 'express';
 
 import authRoutes from './routes/authRoutes';
 import boardRoutes from './routes/boardRoutes';
 import cardsRoutes from './routes/cardRoutes';
 import middlewares from './middlewares';
 
-const router = express.Router();
+const router = Router();
 
 router.use(middlewares.requestDetails);
 router.use(middlewares.logActivity);
