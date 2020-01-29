@@ -4,8 +4,13 @@ import path from 'path';
 export class DBClient<T extends object> {
     private _filePath: string;
 
-    constructor(public fileName: string) {
-        this._filePath = path.join(__dirname, '..', 'database', `${fileName}.json`);
+    private _folderPath: string[];
+
+    constructor(public fileName: string, public folderPath?: string[]) {
+        this._folderPath = folderPath || [__dirname, '..', 'database'];
+        this._folderPath.push(`${fileName}.json`);
+
+        this._filePath = path.join(...this._folderPath);
     }
 
     public async getCollection(): Promise<T[]> {
