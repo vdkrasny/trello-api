@@ -1,12 +1,19 @@
 {
   "root": true,
-  "extends": ["airbnb-base", "plugin:prettier/recommended"],
+  "extends": [
+    "airbnb-base",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended",
+    "plugin:import/typescript"
+  ],
   "rules": {
     "object-shorthand": ["error", "properties"],
     "class-methods-use-this": "off",
-    "no-unused-vars": ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": true }],
+    "@typescript-eslint/no-unused-vars": ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": true }],
     "func-names": "off",
-    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }],
     "newline-before-return": "error",
     "no-underscore-dangle": ["error", { "allowAfterThis": true }]
   },
@@ -14,8 +21,10 @@
     "node": true,
     "es6": true
   },
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 8
+    "project": "./tsconfig.json",
+    "ecmaVersion": 2017,
+    "sourceType": "module"
   }
 }
